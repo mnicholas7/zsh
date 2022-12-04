@@ -4,7 +4,25 @@ ME=$(whoami)
 MYGRP=$(groups | awk '{print $1}')
 
 # make sure we have curl first!
-sudo apt install curl -y
+
+# do we have CURL already ?
+CURL=$(which curl)
+if [[ -e $CURL ]]
+then
+  echo "- already have CURL installed .. skip"
+else
+  sudo apt install curl -y
+fi
+
+
+# do we have TMUX already ?
+TMUX=$(which tmux)
+if [[ -e $TMUX ]]
+then
+  echo "- already have TMUX installed .. skip"
+else
+  sudo apt install tmux -y
+fi
 
 # install oh-my-zsh plugin mgr
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
