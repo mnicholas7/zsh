@@ -79,8 +79,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colored-man-pages colorize pip python ansible aws jsontools pass terraform tmux zsh-navigation-tools zsh-autosuggestions zsh-syntax-highlighting zsh-vim-mode)
-# vi-mode , 
+plugins=(git colored-man-pages colorize pip python ansible aws jsontools pass terraform zsh-navigation-tools zsh-autosuggestions zsh-syntax-highlighting zsh-vim-mode)
+# vi-mode , tmux 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
