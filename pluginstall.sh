@@ -34,6 +34,7 @@ else
   gunzip ./lf-linux-amd64.tar.gz
   tar -xvf lf-linux-amd64.tar
   sudo mv lf /usr/local/bin/
+fi
 
 if [[ -d /etc/lf ]]
 then
@@ -45,12 +46,14 @@ else
   sudo cp ./lfrc    /etc/lf/
   # we source this file in our .zshrc so we can triger the lfcd function with ctrl o
   sudo cp ./lfcd.sh /usr/local/bin/lfcd.sh
+fi
 
 # move our standard .rc's into place
 cp .zshrc ~/ && chown ${ME}:${MYGRP} ~/.zshrc
 cp .vimrc ~/ && chown ${ME}:${MYGRP} ~/.vimrc
 cp .inputrc ~/ && chown ${ME}:${MYGRP} ~/.inputrc
 cp .pythonrc ~/ && chown ${ME}:${MYGRP} ~/.pythonrc
+cp .tmux.conf ~/ && chown ${ME}:${MYGRP} ~/.tmux.conf
 
 # mkdir .tmux plugin dir exists
 mkdir -p ~/.tmux/plugins/
