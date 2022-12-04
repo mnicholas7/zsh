@@ -27,8 +27,8 @@ then
   echo "- already have lf installed .. skip"
 else
   # I love this lf tool
-  wget https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz
-  gunzip lf-linux-amd64.tar.gz
+  #wget https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz
+  gunzip ./lf-linux-amd64.tar.gz
   tar -xvf lf-linux-amd64.tar
   sudo mv lf /usr/local/bin/
 
