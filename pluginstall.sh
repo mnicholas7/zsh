@@ -1,5 +1,8 @@
 #!/bin/bash -x
 
+ME=$(whoami)
+MYGRP=$(groups | awk '{print $1}')
+
 # make sure we have curl first!
 sudo apt install curl -y
 
@@ -43,8 +46,11 @@ else
   # we source this file in our .zshrc so we can triger the lfcd function with ctrl o
   sudo cp ./lfcd.sh /usr/local/bin/lfcd.sh
 
-# move our standard .zshrc into place
-cp .zshrc ~/
+# move our standard .rc's into place
+cp .zshrc ~/ && chown ${ME}:${MYGRP} ~/.zshrc
+cp .vimrc ~/ && chown ${ME}:${MYGRP} ~/.vimrc
+cp .inputrc ~/ && chown ${ME}:${MYGRP} ~/.inputrc
+cp .pythonrc ~/ && chown ${ME}:${MYGRP} ~/.pythonrc
 
 # mkdir .tmux plugin dir exists
 mkdir -p ~/.tmux/plugins/
