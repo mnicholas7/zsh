@@ -24,3 +24,5 @@ sudo mkdir /etc/lf
 
 sudo cp ./lfrc    /etc/lf/
 sudo cp ./lfcd.sh /usr/local/bin/lfcd.sh
+
+cp .zshrc ~/
