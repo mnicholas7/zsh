@@ -21,6 +21,6 @@ tar -xvf lf-linux-amd64.tar
 sudo mv lf /usr/local/bin/
 
 sudo mkdir /etc/lf
-sudo echo "cmd open $vi $fx" > /etc/lf/lfrc
 
+sudo cp ./lfrc    /etc/lf/
 sudo cp ./lfcd.sh /usr/local/bin/lfcd.sh
