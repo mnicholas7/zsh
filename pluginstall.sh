@@ -82,10 +82,10 @@ mkdir -p ~/.tmux/plugins/
 
 # tmux sensible
 git clone https://github.com/tmux-plugins/tmux-sensible.git \
-    ${TMUX_CUSTOM:-~/.tmux/plugins}/
+    ${TMUX_CUSTOM:-~/.tmux/plugins}/tmux-sensible
 
 # manual tmux-power plug-in add ( mac os don't work well w/ tpm )
 git clone https://github.com/wfxr/tmux-power.git \
-    ${TMUX_CUSTOM:-~/.tmux/plugins}/
+    ${TMUX_CUSTOM:-~/.tmux/plugins}/tmux-power
 
 	
