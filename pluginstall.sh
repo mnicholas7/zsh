@@ -87,6 +87,7 @@ cp .zshrc ~/ && chown ${ME}:${MYGRP} ~/.zshrc
 cp .vimrc ~/ && chown ${ME}:${MYGRP} ~/.vimrc
 cp .inputrc ~/ && chown ${ME}:${MYGRP} ~/.inputrc
 cp .pythonrc ~/ && chown ${ME}:${MYGRP} ~/.pythonrc
+cp .editrc ~/ && chown ${ME}:${MYGRP} ~/.editrc
 cp .tmux.conf ~/ && chown ${ME}:${MYGRP} ~/.tmux.conf
 cp bin/* ~/bin/ && chown ${ME}:${MYGRP} ~/bin/*
 cp py/* ~/py/ && chown ${ME}:${MYGRP} ~/py/*
