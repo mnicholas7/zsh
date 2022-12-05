@@ -73,6 +73,9 @@ cp .inputrc ~/ && chown ${ME}:${MYGRP} ~/.inputrc
 cp .pythonrc ~/ && chown ${ME}:${MYGRP} ~/.pythonrc
 cp .tmux.conf ~/ && chown ${ME}:${MYGRP} ~/.tmux.conf
 
+# move our standard dir's into place
+cp -r .vim ~/ && chown -R ${ME}:${MYGRP} ~/.vim
+
 # mkdir .tmux plugin dir exists
 mkdir -p ~/.tmux/plugins/
 

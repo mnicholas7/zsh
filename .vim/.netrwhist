@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/home/nicholas/.vim/plugin'
+let g:netrw_dirhist_8='/home/nicholas/.tmux'
+let g:netrw_dirhist_7='/home/nicholas/.vim'
+let g:netrw_dirhist_6='/home/nicholas/bin'
+let g:netrw_dirhist_5='/home/nicholas/.ssh'
+let g:netrw_dirhist_4='/home/nicholas/JINJA_PY/20221019_1539_logs'
+let g:netrw_dirhist_3='/home/nicholas/PYTHON'
+let g:netrw_dirhist_2='/home/nicholas/bin'
+let g:netrw_dirhist_1='/home/nicholas/AWS_PY'
+let g:netrw_dirhist_0='/home/nicholas/.config/nvim/plugged'
