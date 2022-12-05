@@ -140,3 +140,4 @@ MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
 
 alias t="ls -lt"
 alias e="exit"
+alias tmux="tmux -2"
