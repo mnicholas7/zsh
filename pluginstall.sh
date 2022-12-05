@@ -66,12 +66,21 @@ else
   sudo cp ./lfcd.sh /usr/local/bin/lfcd.sh
 fi
 
+if [[ -d ~/bin/ ]]
+then
+  echo "- already have ~/bin dir .. skip creating!"
+else
+  # create ~/bin/ before cp
+  mkdir ~/bin/
+fi
+
 # move our standard .rc's into place
 cp .zshrc ~/ && chown ${ME}:${MYGRP} ~/.zshrc
 cp .vimrc ~/ && chown ${ME}:${MYGRP} ~/.vimrc
 cp .inputrc ~/ && chown ${ME}:${MYGRP} ~/.inputrc
 cp .pythonrc ~/ && chown ${ME}:${MYGRP} ~/.pythonrc
 cp .tmux.conf ~/ && chown ${ME}:${MYGRP} ~/.tmux.conf
+cp bin/* ~/bin/ && chown ${ME}:${MYGRP} ~/bin/*
 
 # move our standard dir's into place
 cp -r .vim ~/ && chown -R ${ME}:${MYGRP} ~/.vim

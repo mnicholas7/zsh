@@ -1,0 +1,16 @@
+#!/usr/bin/perl -wnl
+
+BEGIN {
+  $prompt="psh> ";
+  printf $prompt;
+}
+
+eval;
+
+$@ ne "" and warn $@;
+
+printf $prompt;
+
+END {
+  ! defined and print "";
+}

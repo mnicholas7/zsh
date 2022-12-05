@@ -138,6 +138,71 @@ MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
+# MN Personal alias'
+
 alias t="ls -lt"
 alias e="exit"
 alias tmux="tmux -2"
+alias c='rm -rf ./logs/* '
+alias sshk="ssh -o KexAlgorithms=diffie-hellman-group1-sha1 -o Ciphers=aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc "
+export sshk="ssh -o KexAlgorithms=diffie-hellman-group1-sha1 -o Ciphers=aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc "
+alias  sshk-copy-id="ssh-copy-id -o KexAlgorithms=diffie-hellman-group1-sha1 -o Ciphers=aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc "
+alias psh="rlwrap ~/bin/pshell"
+alias vh="sudo vim /etc/hosts"
+alias scp='noglob scp'
+
+
+# MN Personal ENV VARS
+set -o vi
+export EDITOR=vi
+export PYTHONPATH=~/PYTHON
+export PYTHONSTARTUP='/home/nicholas/.pythonrc'
+
+# MN Personal func's
+function sshl() {
+    echo ""
+    echo "<dbug func enabled>"
+    echo ""
+	echo "The number of positional parameter : $#"
+    echo "All parameters or arguments passed to the function: '$@'"
+    echo ""
+
+	if [ $# != 1 ]; then
+		echo -e "\nOnly one ARG please!  Call this script with ${0} <IP/hostname>\n"
+	else
+		createlogsdir;
+		y=`date`
+		x=$1 ;
+		echo -e "\nNow connecting to host: ${x} at ${y}\n\n" >> ./logs/${x}_interact.txt ;
+                #ssh $x echo -e "set -o vi\nalias t=\"ls -lt\"\n" > mn;
+                scp ~/m $x: ;
+		ssh $x | tee -a ./logs/${x}_interact.txt ;
+	fi
+}
+
+function createlogsdir() {
+	if [ -d ./logs ];
+	then
+		echo "I see we have a ./logs dir already ... ";
+	else
+		echo "Creating ./logs dir ... " && mkdir logs;
+	fi;
+}
+
+function stamp() {
+	if [ -d ./logs ];
+	then
+		echo "I see we have a ./logs dir already ... ";
+		echo "rotating ...";
+		x=`date "+%Y%m%d_%H%M"`
+		mv ./logs ./${x}_logs && echo "moving ./logs => ./${x}_logs"
+		echo ""
+		mkdir logs
+	else
+		echo "Creating ./logs dir ... " && mkdir logs;
+	fi;
+
+
+}
+
+
