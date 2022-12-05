@@ -18,10 +18,6 @@ def ERROR():
 
     [ Unauthorized ]
 
-    [ Please send a message to Michael Nicholas on teams ,.. ]
-
-    [ This attempt has been logged {x} ]
-
     """
 
     MSG = PRINT_FMT_MSG(MSG)
