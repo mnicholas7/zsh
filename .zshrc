@@ -156,7 +156,7 @@ alias scp='noglob scp'
 set -o vi
 export EDITOR=vi
 export PYTHONPATH=${PYTHONPATH}:${HOME}/py:/usr/local/bin/
-export PYTHONSTARTUP='/home/nicholas/.pythonrc'
+export PYTHONSTARTUP=${HOME}/.pythonrc
 
 # MN Personal func's
 function sshl() {
