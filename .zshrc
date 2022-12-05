@@ -155,7 +155,7 @@ alias scp='noglob scp'
 # MN Personal ENV VARS
 set -o vi
 export EDITOR=vi
-export PYTHONPATH=~/PYTHON
+export PYTHONPATH=${PYTHONPATH}:${HOME}/py:/usr/local/bin/
 export PYTHONSTARTUP='/home/nicholas/.pythonrc'
 
 # MN Personal func's
@@ -204,5 +204,18 @@ function stamp() {
 
 
 }
+
+# SYS=$(uname)
+# if [[ $SYS == Linux ]]
+# then
+#   #
+# elif [[ $SYS == Darwin ]]
+#   #
+# fi
+
+PATH=${PATH}:${HOME}/bin/:${HOME}/py/
+
+
+
 
 
