@@ -219,13 +219,13 @@ def PRETTY_TEST(LOOPCOUNT):
     
         MSG = f"""
                                                                     
-        {x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}  
+        {x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}
         {x}                                                        {x}  
         {x} [ZZChitownMNO04] BEFORE: [Active ] ¿? AFTER: [Standby] {x}  
         {x}                                                        {x}  
         {x} [ZZChitownMNO05] BEFORE: [Standby] ?¿ AFTER: [Active ] {x}  
         {x}                                                        {x}  
-        {x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}  
+        {x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}
     
         """
         x = RAND_CH()
