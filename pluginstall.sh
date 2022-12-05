@@ -76,9 +76,16 @@ cp .tmux.conf ~/ && chown ${ME}:${MYGRP} ~/.tmux.conf
 # mkdir .tmux plugin dir exists
 mkdir -p ~/.tmux/plugins/
 
-# tmux prompt
-git clone https://github.com/tmux-plugins/tpm.git \
+# tmux prompt - tpm giving me issues on mac, going manual route
+#git clone https://github.com/tmux-plugins/tpm.git \
+#    ${TMUX_CUSTOM:-~/.tmux/plugins}/
+
+# tmux sensible
+git clone https://github.com/tmux-plugins/tmux-sensible.git \
     ${TMUX_CUSTOM:-~/.tmux/plugins}/
 
+# manual tmux-power plug-in add ( mac os don't work well w/ tpm )
+git clone https://github.com/wfxr/tmux-power.git \
+    ${TMUX_CUSTOM:-~/.tmux/plugins}/
 
 	
