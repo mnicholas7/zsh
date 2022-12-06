@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash 
 
 ME=$(whoami)
 MYGRP=$(groups | awk '{print $1}')
