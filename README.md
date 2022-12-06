@@ -102,9 +102,10 @@ drwxrwxr-x 1 zoomer zoomer     512 Dec  5 22:18 py
 -rw-rw-r-- 1 zoomer zoomer     201 Dec  5 22:18 requirements.txt  
 $
 ```
-## Then just run this pluginstall.sh script:
+## Then just SOURCE this pluginstall.sh script:
+### better to SOURCE it so you can be in either zsh or bash and you get mostly the same result!
 ```
-$ ./pluginstall.sh 
+$ source pluginstall.sh 
 - already have CURL installed .. skip
 - already have ZSH installed .. skip
 - already have TMUX installed .. skip

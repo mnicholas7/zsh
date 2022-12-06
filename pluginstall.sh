@@ -1,4 +1,4 @@
-#!/bin/bash 
+# source this file instaed so you can be in zsh or bash and it still mostly works the same!
 
 ME=$(whoami)
 MYGRP=$(groups | awk '{print $1}')
@@ -119,7 +119,7 @@ git clone https://github.com/tmux-plugins/tmux-sensible.git \
 git clone https://github.com/wfxr/tmux-power.git \
     ${TMUX_CUSTOM:-~/.tmux/plugins}/tmux-power
 
-TEST=$( $SHELL | awk -F/ '{print $NF}' )
+TEST=$( echo $SHELL | awk -F/ '{print $NF}' )
 if [[ $TEST == zsh ]]
 then
   source ~/.zshrc
