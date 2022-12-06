@@ -149,7 +149,7 @@ export sshk="ssh -o KexAlgorithms=diffie-hellman-group1-sha1 -o Ciphers=aes128-c
 alias  sshk-copy-id="ssh-copy-id -o KexAlgorithms=diffie-hellman-group1-sha1 -o Ciphers=aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc "
 alias psh="rlwrap ~/bin/pshell"
 alias vh="sudo vim /etc/hosts"
-alias scp='noglob scp'
+# alias scp='noglob scp'
 
 
 # MN Personal ENV VARS
