@@ -155,7 +155,7 @@ alias scp='noglob scp'
 # MN Personal ENV VARS
 set -o vi
 export EDITOR=vi
-export PYTHONPATH=${PYTHONPATH}:${HOME}/py:/usr/local/bin/
+export PYTHONPATH=${HOME}/py:/usr/local/bin/
 export PYTHONSTARTUP=${HOME}/.pythonrc
 
 # MN Personal func's
