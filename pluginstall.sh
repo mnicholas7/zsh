@@ -14,6 +14,15 @@ else
   sudo apt install curl -y
 fi
 
+# do we have zsh already ?
+ZSH=$(which zsh)
+if [[ -e $ZSH ]]
+then
+  echo "- already have ZSH installed .. skip"
+else
+  sudo apt install zsh -y
+fi
+
 
 # do we have TMUX already ?
 TMUX=$(which tmux)
