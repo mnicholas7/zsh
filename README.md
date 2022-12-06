@@ -11,7 +11,7 @@ Here's what's included:
 - Everything you need to spin up a python virtual environment with the included modules defined in requirements.txt
 
 # Integrated zsh plug-ins:
--	[https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/](https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/)
+-	[https://github.com/ohmyzsh/ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)
 -	[https://github.com/zsh-users/zsh-syntax-highlighting.git](https://github.com/zsh-users/zsh-syntax-highlighting.git)
 -	[https://github.com/zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 -	[https://github.com/softmoth/zsh-vim-mode.git](https://github.com/softmoth/zsh-vim-mode.git)
