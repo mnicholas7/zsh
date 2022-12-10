@@ -213,7 +213,9 @@ function stamp() {
 #   #
 # fi
 
-PATH=${PATH}:${HOME}/bin/:${HOME}/py/
+#PATH=${PATH}:${HOME}/bin/:${HOME}/py/
+export PATH=$( ${HOME}/py/path.py )
+${HOME}/py/path.py 1
 
 
 

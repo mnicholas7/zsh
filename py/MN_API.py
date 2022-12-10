@@ -22,6 +22,11 @@ pd.set_option("display.max_columns", None)
 pd.set_option("display.width", None)
 pd.set_option("display.max_colwidth", None)
 
+def exa():
+    stuff = globals()
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(stuff)
+
 
 def rload(x):
     importlib.reload(x)

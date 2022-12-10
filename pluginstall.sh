@@ -125,3 +125,17 @@ then
   source ~/.zshrc
 fi
 
+# if we are inside WSL, copy some files to our PS home dir
+if [[ -e  /mnt/c/windows/system32/cmd.exe ]]
+then
+  WINDOZE_USER=$( /mnt/c/windows/system32/cmd.exe /c "echo %USERNAME%" | perl -wpl -e "s/\s+//g;")
+   
+  MSHOME=/mnt/c/Users/${WINDOZE_USER}
+
+  if [[ -d ${MSHOME} ]]
+  then
+    cp .vimrc ${MSHOME}/_vimrc
+    cp profile.ps1 ${MSHOME}/Documents/WindowsPowerShell/
+  fi
+fi
+

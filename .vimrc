@@ -7,6 +7,7 @@ set hlsearch
 set incsearch
 set ruler
 " set runtimepath^=~/.vim/plugin/auto-pairs.vim
+"
 
 set autoindent
 
