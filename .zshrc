@@ -224,5 +224,6 @@ function stamp() {
 # fi
 
 #PATH=${PATH}:${HOME}/bin/:${HOME}/py/
+export OPENER=code
 export PATH=$( ${HOME}/py/path.py )
 ${HOME}/py/path.py 1

@@ -69,8 +69,7 @@ then
 else
   # create global /etc dir for lf
   sudo mkdir /etc/lf
-  # copy our file so we can use vim when we trigger the open command with 'l'
-  sudo cp ./lfrc    /etc/lf/
+  #
   # we source this file in our .zshrc so we can triger the lfcd function with ctrl o
   sudo cp ./lfcd.sh /usr/local/bin/lfcd.sh
 fi
