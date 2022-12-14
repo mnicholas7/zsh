@@ -38,3 +38,16 @@ set statusline +=%2*0x%04B\ %*          "character under cursor
 " set list
 
 set listchars=tab:†ⅱ,trail:Ѫ,eol:$,nbsp:ϟ
+
+
+autocmd FileType python  map <buffer> <F7>      :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+autocmd FileType python imap <buffer> <F7> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+
+autocmd FileType python  map <buffer> <F8>      :w<CR>:exec '!python3 -m pdb' shellescape(@%, 1)<CR>
+autocmd FileType python imap <buffer> <F8> <esc>:w<CR>:exec '!python3 -m pdb' shellescape(@%, 1)<CR>
+
+autocmd FileType python  map <buffer> <F9>      :w<CR>:exec '!python3 -i' shellescape(@%, 1)<CR>
+autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3 -i' shellescape(@%, 1)<CR>
+
+
+

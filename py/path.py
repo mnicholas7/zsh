@@ -15,12 +15,36 @@ def main(mode=None):
 
     PATH = PATH.split(':')
 
-    #print(f"""
+    #     # ж χ ♪ ♫  
+    #     # ♪ж♫
+    # ♫
+    # ♪  へ⌂ *  ≫
+    # ♪    # ж χ ♪ ♫  
+    #     #
+    #     ♫♪♫♪♫♪♫
+    # i     q   
+    # sdfj 
+    breakpoint()
+    # PATH = [ i = i.rstrip() for i in PATH ]
+    # [ print(i, "\n") for i in list(globals().items()) ]
+    # [ print(i, " ♪ \n ♫ ж> ") for i in list(globals().items()) ]
+    # [ print(i, " ж\n ♫ >> ") for i in list(globals().items()) 
+    # [ print(" ♫ ≫ " + str(i) + " ≪ ж \n" ) for i in list(globals().items()) ]
+    [ print(i, "\n> ") for i in list(globals().items()) ]
+    [ print("\nж ", i) for i in list(globals().items()) ]
+    [ print("\n",i) for i in list(globals().items()) ]
 
-    #Current Path Before:
-    #""")
-    #for x,i in enumerate(PATH):
-    #    print(f"{x:2}:{i}")
+
+
+
+    #         gg My!
+
+    print(f"""
+
+    Current Path Before:
+    """)
+    for x,i in enumerate(PATH):
+        print(f"{x:2}:{i}")
 
     # remove dups
     # PATH = set(PATH)
@@ -37,17 +61,17 @@ def main(mode=None):
     # for DIR in DIRS:
     #   PAT = re.compile(f"{HOME}\/{DIR}\/?")
 
-    for x,i in enumerate(PATH):
-        # print(f"▼ {PAT=} {x=} with {i=}")
-        if re.match(PAT, i):
-            # print(f"  ignoring .. {PAT=} which matched {i=}")
+    for x,z in enumerate(PATH):
+        # print(f"▼ {PAT=} {x=} with {z=}")
+        if re.match(PAT, z):
+            # print(f"  ignoring .. {PAT=} which matched {z=}")
             pass
         else:
             if i not in NEW_PATH:
-                #print(f"  appending {i=}")
-                NEW_PATH.append(i)
+                print(f"  appending {z=}")
+                NEW_PATH.append(z)
             else:
-                #print(f" already in path: {i=}")
+                print(f" already in path: {z=}")
                 pass
 
 
@@ -56,9 +80,9 @@ def main(mode=None):
 
     Path After Prune:
     """)
-    for x,i in enumerate(NEW_PATH):
-        print(f"{x:2}:{i}")
 
+    for a,b in enumerate(NEW_PATH):
+        print(f"{a:2}:{b}")
 
     for DIR in DIRS:
         NEW_PATH.append(f"{HOME}/{DIR}")
