@@ -26,9 +26,11 @@ def main(mode=None):
     # PATH = set(PATH)
     # PATH = list(PATH)
 
-    DIRS = [ 'aws','bin','jinja','jq','py' ]
+    DIRS = [ 'aws','bin','jinja','jq','py','.local/bin' ]
 
     PAT = re.compile(f"{HOME}/({ '|'.join(DIRS) })\/?")
+
+    #/home/nicholas/.local/lib/python3.8/site-packages
 
     NEW_PATH = []
 
@@ -50,12 +52,12 @@ def main(mode=None):
 
 
 
-    # print(f"""
+    print(f"""
 
-    # Path After Prune:
-    # """)
-    # for x,i in enumerate(NEW_PATH):
-    #     print(f"{x:2}:{i}")
+    Path After Prune:
+    """)
+    for x,i in enumerate(NEW_PATH):
+        print(f"{x:2}:{i}")
 
 
     for DIR in DIRS:
