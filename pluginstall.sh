@@ -46,8 +46,8 @@ git clone https://github.com/zsh-users/zsh-autosuggestions \
 git clone https://github.com/softmoth/zsh-vim-mode.git \
     ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-vim-mode
 
-git clone https://github.com/romkatv/powerlevel10k.git \
-    ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+# git clone https://github.com/romkatv/powerlevel10k.git \
+#     ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
 
 
 # do we have lf already ?
@@ -93,6 +93,7 @@ fi
 # move our standard .rc's into place
 cp .zshrc ~/ && chown ${ME}:${MYGRP} ~/.zshrc
 cp .vimrc ~/ && chown ${ME}:${MYGRP} ~/.vimrc
+cp .ctags ~/ && chown ${ME}:${MYGRP} ~/.ctags
 cp .inputrc ~/ && chown ${ME}:${MYGRP} ~/.inputrc
 cp .pythonrc ~/ && chown ${ME}:${MYGRP} ~/.pythonrc
 cp .editrc ~/ && chown ${ME}:${MYGRP} ~/.editrc
@@ -100,7 +101,7 @@ cp .tmux.conf ~/ && chown ${ME}:${MYGRP} ~/.tmux.conf
 cp bin/* ~/bin/ && chown ${ME}:${MYGRP} ~/bin/*
 cp py/* ~/py/ && chown ${ME}:${MYGRP} ~/py/*
 
-# move our standard dir's into place
+# move our standard vim plug dir's into place
 cp -r .vim ~/ && chown -R ${ME}:${MYGRP} ~/.vim
 
 # mkdir .tmux plugin dir exists
@@ -121,7 +122,7 @@ git clone https://github.com/wfxr/tmux-power.git \
 TEST=$( echo $SHELL | awk -F/ '{print $NF}' )
 if [[ $TEST == zsh ]]
 then
-  source ~/.zshrc
+  # source ~/.zshrc
 fi
 
 # if we are inside WSL, copy some files to our PS home dir
@@ -138,3 +139,13 @@ then
   fi
 fi
 
+# do we have color ls ?
+# sudo apt install ruby ruby-dev ruby-colorize
+# sudo gem install colorls
+# CURL=$(which curl)
+# if [[ -e $CURL ]]
+# then
+#   echo "- already have CURL installed .. skip"
+# else
+#   sudo apt install curl -y
+# fi
