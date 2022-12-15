@@ -227,5 +227,6 @@ function stamp() {
 export OPENER=code
 # export PATH=$( ${HOME}/py/path.py )
 # ${HOME}/py/path.py 1
-alias lc='colorls'
+alias g='colorls'
+:q
 
