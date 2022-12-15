@@ -150,7 +150,8 @@ MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
 
 # MN Personal alias'
 
-alias t="ls -lt"
+#alias t="ls -lt"
+alias t="colorls -lt"
 alias e="exit"
 alias tmux="tmux -2"
 alias c='rm -rf ./logs/* '
