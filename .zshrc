@@ -26,8 +26,8 @@ export ZSH="$HOME/.oh-my-zsh"
 #ZSH_THEME="fino"
 #ZSH_THEME="re5et"
 ## xiong-chiamiov-plus
-#ZSH_THEME="random"
-ZSH_THEME="xiong-chiamiov-plus"
+ZSH_THEME="random"
+#ZSH_THEME="xiong-chiamiov-plus"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
