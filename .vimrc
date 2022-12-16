@@ -1,3 +1,4 @@
+set nocompatible
 set mouse-=a
 syntax on
 " colorscheme evening
@@ -14,7 +15,9 @@ set autoindent
 set expandtab
 set shiftwidth=2
 set softtabstop=2
-filetype plugin indent on
+filetype on
+filetype plugin on
+filetype indent on
 " let g:AutoPairsFlyMode = 1
 
 set showcmd
@@ -39,6 +42,17 @@ set statusline +=%2*0x%04B\ %*          "character under cursor
 
 set listchars=tab:†ⅱ,trail:Ѫ,eol:$,nbsp:ϟ
 
+autocmd FileType bash    map <buffer> <F3>      :w<CR>:exec '!perl -d' shellescape(@%, 1)<CR>
+autocmd FileType bash   imap <buffer> <F3> <esc>:w<CR>:exec '!perl -d' shellescape(@%, 1)<CR>
+
+autocmd FileType bash    map <buffer> <F4>      :w<CR>:exec '!zsh -x -o shwordsplit' shellescape(@%, 1)<CR>
+autocmd FileType bash   imap <buffer> <F4> <esc>:w<CR>:exec '!zsh -x -o shwordsplit' shellescape(@%, 1)<CR>
+
+autocmd FileType bash    map <buffer> <F5>      :w<CR>:exec '!bash' shellescape(@%, 1)<CR>
+autocmd FileType bash   imap <buffer> <F5> <esc>:w<CR>:exec '!bash' shellescape(@%, 1)<CR>
+
+autocmd FileType bash    map <buffer> <F6>      :w<CR>:exec '!bash -x' shellescape(@%, 1)<CR>
+autocmd FileType bash   imap <buffer> <F6> <esc>:w<CR>:exec '!bash -x' shellescape(@%, 1)<CR>
 
 autocmd FileType python  map <buffer> <F7>      :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F7> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>

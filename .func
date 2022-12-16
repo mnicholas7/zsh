@@ -1,0 +1,83 @@
+
+# MN Personal func's
+function sshk() {
+    echo ""
+    echo "<dbug func enabled>"
+    echo ""
+	echo "The number of positional parameter : $#"
+    echo "All parameters or arguments passed to the function: '$@'"
+    echo ""
+
+	if [ $# != 1 ]; then
+		echo -e "\nOnly one ARG please!  Call this script with ${0} <IP/hostname>\n"
+	else
+		createlogsdir;
+		y=`date`
+		x=$1 ;
+		echo "Now connecting to host: {x} at {y}\n" >> ./logs/${x}_interact.txt ;
+		sshk -l mnicholas $x | tee -a ./logs/${x}_interact.txt ;
+	fi
+}
+function sshkl() {
+    echo ""
+    echo "<dbug func enabled>"
+    echo ""
+	echo "The number of positional parameter : $#"
+    echo "All parameters or arguments passed to the function: '$@'"
+    echo ""
+
+	if [ $# != 1 ]; then
+		echo -e "\nOnly one ARG please!  Call this script with ${0} <IP/hostname>\n"
+	else
+		createlogsdir;
+		y=`date`
+		x=$1 ;
+		echo -e "\nNow connecting to host: ${x} at ${y}\n\n" >> ./logs/${x}_interact.txt ;
+                #ssh $x echo -e "set -o vi\nalias t=\"ls -lt\"\n" > mn;
+                scp ~/m $x: ;
+		sshk $x | tee -a ./logs/${x}_interact.txt ;
+	fi
+}
+function sshl() {
+    echo ""
+    echo "<dbug func enabled>"
+    echo ""
+	echo "The number of positional parameter : $#"
+    echo "All parameters or arguments passed to the function: '$@'"
+    echo ""
+
+	if [ $# != 1 ]; then
+		echo -e "\nOnly one ARG please!  Call this script with ${0} <IP/hostname>\n"
+	else
+		createlogsdir;
+		y=`date`
+		x=$1 ;
+		echo -e "\nNow connecting to host: ${x} at ${y}\n\n" >> ./logs/${x}_interact.txt ;
+                #ssh $x echo -e "set -o vi\nalias t=\"ls -lt\"\n" > mn;
+                scp ~/m $x: ;
+		ssh $x | tee -a ./logs/${x}_interact.txt ;
+	fi
+}
+
+function createlogsdir() {
+	if [ -d ./logs ];
+	then
+		echo "I see we have a ./logs dir already ... ";
+	else
+		echo "Creating ./logs dir ... " && mkdir logs;
+	fi;
+}
+
+function stamp() {
+	if [ -d ./logs ];
+	then
+		echo "I see we have a ./logs dir already ... ";
+		echo "rotating ...";
+		x=`date "+%Y%m%d_%H%M"`
+		mv ./logs ./${x}_logs && echo "moving ./logs => ./${x}_logs"
+		echo ""
+		mkdir logs
+	else
+		echo "Creating ./logs dir ... " && mkdir logs;
+	fi;
+}

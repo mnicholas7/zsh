@@ -1,0 +1,11 @@
+source /etc/environment
+export PATH="$PATH:$HOME/bin:$HOME/py:$HOME/aws:$HOME/jq:$HOME/jinja"
+export PATH="$PATH:/mnt/c/Program Files (x86)/Nmap"
+export PATH="$PATH:/mnt/c/Users/Michael.Nicholas/AppData/Local/Programs/Microsoft VS Code/bin"
+export EDITOR=vi
+export PYTHONPATH=${HOME}/py:/usr/local/bin/
+export PYTHONSTARTUP=${HOME}/.pythonrc
+export OPENER=code
+
+echo -e ${PATH//:/\\n}
+

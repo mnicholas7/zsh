@@ -15,42 +15,24 @@ def main(mode=None):
 
     PATH = PATH.split(':')
 
-    #     # ж χ ♪ ♫  
-    #     # ♪ж♫
-    # ♫
-    # ♪  へ⌂ *  ≫
-    # ♪    # ж χ ♪ ♫  
-    #     #
-    #     ♫♪♫♪♫♪♫
-    # i     q   
-    # sdfj 
     breakpoint()
-    # PATH = [ i = i.rstrip() for i in PATH ]
-    # [ print(i, "\n") for i in list(globals().items()) ]
-    # [ print(i, " ♪ \n ♫ ж> ") for i in list(globals().items()) ]
-    # [ print(i, " ж\n ♫ >> ") for i in list(globals().items()) 
-    # [ print(" ♫ ≫ " + str(i) + " ≪ ж \n" ) for i in list(globals().items()) ]
-    [ print(i, "\n> ") for i in list(globals().items()) ]
-    [ print("\nж ", i) for i in list(globals().items()) ]
-    [ print("\n",i) for i in list(globals().items()) ]
-
-
-
-
-    #         gg My!
 
     print(f"""
 
     Current Path Before:
     """)
-    for x,i in enumerate(PATH):
-        print(f"{x:2}:{i}")
+    for count,item in enumerate(PATH):
+        print(f"{count:2}:{item}")
+
+    breakpoint()
+    
 
     # remove dups
     # PATH = set(PATH)
     # PATH = list(PATH)
 
-    DIRS = [ 'aws','bin','jinja','jq','py','.local/bin' ]
+    #DIRS = [ 'aws','bin','jinja','jq','py','.local/bin' ]
+    DIRS = [ 'aws','bin','jinja','jq','py' ]
 
     PAT = re.compile(f"{HOME}/({ '|'.join(DIRS) })\/?")
 
@@ -61,54 +43,57 @@ def main(mode=None):
     # for DIR in DIRS:
     #   PAT = re.compile(f"{HOME}\/{DIR}\/?")
 
-    for x,z in enumerate(PATH):
-        # print(f"▼ {PAT=} {x=} with {z=}")
+    breakpoint()
+    for counter,z in enumerate(PATH):
+        print(f"▼ {PAT=} {counter=} with {z=}")
+        breakpoint()
         if re.match(PAT, z):
-            # print(f"  ignoring .. {PAT=} which matched {z=}")
-            pass
+            breakpoint()
+            print(f"  MATCHED SO SKIP .. {PAT=} which matched {z=}")
         else:
-            if i not in NEW_PATH:
-                print(f"  appending {z=}")
+            breakpoint()
+            if z not in NEW_PATH:
+                print(f"  PATH ADD: {counter=} {z=}")
+                breakpoint()
                 NEW_PATH.append(z)
             else:
-                print(f" already in path: {z=}")
-                pass
+                print(f" DO NOTHING: already in path: {z=}")
+                breakpoint()
 
 
 
-    print(f"""
+    breakpoint()
+    print("Path After")
 
-    Path After Prune:
-    """)
+    for f,g in enumerate(NEW_PATH):
+        print(f"{f:2}:{g}")
+        breakpoint()
 
-    for a,b in enumerate(NEW_PATH):
-        print(f"{a:2}:{b}")
 
-    for DIR in DIRS:
-        NEW_PATH.append(f"{HOME}/{DIR}")
+    # for DIR in DIRS:
+    #     NEW_PATH.append(f"{HOME}/{DIR}")
 
 
 
 
     # os.environ['PATH'] = ":".join(NEW_PATH)
-    if mode:
-        pass
-        print(f"""
+    # if mode:
+    #     print(f"""
 
-        Final Path:
-        """)
-        for x,i in enumerate(NEW_PATH):
-            print(f"{x:2}:{i}")
-    else:
-        print(":".join(NEW_PATH))
+    #     Final Path:
+    #     """)
+    #     for x,i in enumerate(NEW_PATH):
+    #         print(f"{x:2}:{i}")
+    # else:
+    #     print(":".join(NEW_PATH))
 
 if __name__ == '__main__':
      
-    try:
-        if sys.argv[1]:
-            main(sys.argv[1])
-    except IndexError:
-        main()
+    # try:
+    #     if sys.argv[1]:
+    #         main(sys.argv[1])
+    # except IndexError:
+    main()
 
 
 

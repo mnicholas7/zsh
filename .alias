@@ -1,0 +1,26 @@
+# MN Personal alias'
+alias tt="ls -ltaF"
+alias ff="ls -taF"
+alias t="colorls -lta"
+alias f="colorls -ta"
+alias e="exit"
+alias tmux="tmux -2"
+alias c='rm -rf ./logs/* '
+alias sshk="ssh -o KexAlgorithms=diffie-hellman-group1-sha1 -o Ciphers=aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc "
+alias sshk-copy-id="ssh-copy-id -o KexAlgorithms=diffie-hellman-group1-sha1 -o Ciphers=aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc "
+alias psh="rlwrap ~/bin/pshell"
+
+alias dv="vim -V9vim.log"
+alias vh="sudo vim /etc/hosts"
+alias vs="sudo vim /.ssh/config"
+
+alias rb="source ~/.bashmn"
+alias vb="cd ~/PUBREPOS/zsh/ ; vim ~/PUBREPOS/zsh/.bashmn"
+
+alias rz="source ~/.zshrc"
+alias vz="cd ~/PUBREPOS/zsh/ ; vim ~/PUBREPOS/zsh/.zshrc"
+
+alias sshproxy="ssh -g -D 2224 127.0.0.1"
+alias certviewer="openssl x509 -noout -text -in"
+alias pythonHTTPServer="python3 -m http.server 8000"
+alias startVncServer="tigervncserver -localhost no -xstartup /usr/bin/startplasma-x11"
