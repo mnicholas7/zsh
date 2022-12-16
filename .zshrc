@@ -81,6 +81,7 @@ ZSH_THEME="random"
 # see 'man strftime' for details.
 HIST_STAMPS="%a-%b-%d-%y %T"
 
+
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
