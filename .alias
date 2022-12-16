@@ -24,3 +24,6 @@ alias sshproxy="ssh -g -D 2224 127.0.0.1"
 alias certviewer="openssl x509 -noout -text -in"
 alias pythonHTTPServer="python3 -m http.server 8000"
 alias startVncServer="tigervncserver -localhost no -xstartup /usr/bin/startplasma-x11"
+
+alias ffind="find . -type f | fzf"
+alias dfind="find . -type d | fzf"

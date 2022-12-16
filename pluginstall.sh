@@ -189,8 +189,32 @@ UNAME=$(uname)
 case $UNAME in
   Darwin)
     echo "Think Different"
-    sudo port install ruby-devel ruby-colorize -y
-    sudo gem install colorls
+    sudo port install ruby-devel -y
+
+    REQS=( "colorls" "colorize" )
+    GEMS=($(sudo gem list | awk '{print $1}'))
+
+    declare -a RESULT
+
+    for req in ${REQS[@]}; do
+      for mineral in ${GEMS[@]}; do
+        if [[ $req == $mineral ]]; then
+          RESULT+=( "$req" )
+        fi
+      done
+    done
+
+    if [[ ${#RESULT[@]} == 2 ]]; then
+      echo "looks like we got the diamonds ..◇ ◇ ◇◇◇  "
+    else
+      sudo gem install colorls
+      git clone https://github.com/fazibear/colorize.git ~/PUBREPOS/colorize
+
+      cd ~/PUBREPOS/colorize
+      sudo gem build colorize.gemspec
+      sudo gem install colorize*.gem
+      cd ~/PUBREPOS/zsh
+    fi
     ;;
   Linux)
     echo "Ah, I see you like penguins ..."
@@ -198,7 +222,7 @@ case $UNAME in
     sudo gem install colorls
     ;;
     *)
-    echo "no idea what kinda system this is, but it sucks"
+    echo "no idea what kinda system this is, but it sucks, that much I can tell you.. "
     ;;
 esac
 # not gonna test for these just run 'em KISS 

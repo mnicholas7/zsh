@@ -2,15 +2,15 @@
 if [[ -e /etc/environment ]]; then
   PATH=""
   source /etc/environment
-  export PATH="$PATH:/mnt/c/Program Files (x86)/Nmap"
+  PATH="$PATH:/mnt/c/Program Files (x86)/Nmap"
   export PATH="$PATH:/mnt/c/Users/Michael.Nicholas/AppData/Local/Programs/Microsoft VS Code/bin"
 elif [[ -e /etc/paths ]]; then
   PATH=""
   PATH="$(/bin/cat /etc/paths /etc/paths.d/100-rvictl /etc/manpaths  | /usr/bin/awk '{printf ":" $0 }')"
-  export PATH
+  # export PATH
 
   # MacPorts Installer addition on 2018-07-25_at_21:37:59: adding an appropriate PATH variable for use with MacPorts.
-  export PATH="/Users/nicholas/bin:/opt/local/bin:/opt/local/sbin:$PATH"
+  PATH="/Users/nicholas/bin:/opt/local/bin:/opt/local/sbin:$PATH"
   # Finished adapting your PATH environment variable for use with MacPorts.
   
   # Setting PATH for Python 3.8
@@ -23,12 +23,16 @@ fi
 # bash-3.2$ echo $PATH
 # /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/share/man:/usr/local/share/man:
 
-export PATH="$PATH:$HOME/bin:$HOME/py:$HOME/aws:$HOME/jq:$HOME/jinja"
+# export PATH="$PATH:$HOME/bin:$HOME/py:$HOME/aws:$HOME/jq:$HOME/jinja"
+# export PATH="$PATH:$HOME/PUBREPOS/fzf/bin"
+
+PATH="$PATH:$HOME/bin:$HOME/py:$HOME/aws:$HOME/jq:$HOME/jinja"
 export PATH="$PATH:$HOME/PUBREPOS/fzf/bin"
+ 
+
 export EDITOR=vi
 export PYTHONPATH=${HOME}/py:/usr/local/bin/
 export PYTHONSTARTUP=${HOME}/.pythonrc
 export OPENER=code
 
-echo -e ${PATH//:/\\n}
 
