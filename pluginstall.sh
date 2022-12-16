@@ -1,4 +1,4 @@
-# source this file instaed so you can be in zsh or bash and it still mostly works the same!
+# source this file instead of marking exec so you can be in zsh or bash and it still mostly works the same!
 
 ME=$(whoami)
 MYGRP=$(groups | awk '{print $1}')
@@ -37,6 +37,7 @@ git clone https://github.com/softmoth/zsh-vim-mode.git \
 
 # git clone https://github.com/romkatv/powerlevel10k.git \
 #     ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+
 
 
 # do we have lf already ?
@@ -182,5 +183,15 @@ elif [[ $TEST == bash ]]; then
 else
   echo ".. couldn't determine your shell so not sourcing any .bashrc or .zshrc "
 fi
+
+
+# save for last
+# fuzzy finder
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/PUBREPOS/fzf
+
+#
+# install fzf
+~/.PUBREPOS/fzf/install
+
 
 
