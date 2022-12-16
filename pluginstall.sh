@@ -148,19 +148,6 @@ source ~/.varpriv
 # fi
 #
 #
-###  Bash tweak to append instead of overwrite existing
-#  └─[$] <git:(main*)> grep 'rAK0JBaJtWkgV0' .bashmn
-#  rAK0JBaJtWkgV0
-#  ┌─[nicholas@DESKTOP-ST9966E] - [~/PUBREPOS/zsh] - [Thu Dec 15, 15:58]
-#  └─[$] <git:(main*)> YES=$(grep 'rAK0JBaJtWkgV0' .bashmn)
-#  ┌─[nicholas@DESKTOP-ST9966E] - [~/PUBREPOS/zsh] - [Thu Dec 15, 15:58]
-#  └─[$] <git:(main*)> if YES:
-#   > then
-#   >   echo 'yup'
-#   > fi
-#  zsh: command not found: YES:
-#  ┌─[nicholas@DESKTOP-ST9966E] - [~/PUBREPOS/zsh] - [Thu Dec 15, 15:58]
-#  └─[$] <git:(main*)>                                                                                                               <<<
 #  
 
 # Check whether we've appended here already before doing it again ,.. and AGAIN ...., and AGAIN ....
