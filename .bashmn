@@ -106,5 +106,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
+echo "$(~/py/rand_quote.py)"
+
 HISTTIMEFORMAT="%a-%b-%d-%y %T%t"
 # rAK0JBaJtWkgV0

@@ -3,6 +3,7 @@
 from string import *
 import random
 import inspect
+import os
 
 class r:
     """
@@ -38,7 +39,8 @@ class r:
         return(SEED)
 
     def rq():
-        f = open("~/py/quotes.txt", "r")
+        HOME = os.environ.get('HOME')
+        f = open(f"{HOME}/py/quotes.txt", "r")
         QUOTES_LIST = f.readlines()
         print(random.choice(QUOTES_LIST))
 

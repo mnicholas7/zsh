@@ -156,3 +156,6 @@ MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
 
 # zsh specific alias
 alias scp='noglob scp'
+
+echo "$(~/py/rand_quote.py)"
+

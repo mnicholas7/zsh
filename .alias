@@ -4,7 +4,7 @@ alias ff="ls -taF"
 alias t="colorls -lta"
 alias f="colorls -ta"
 alias e="exit"
-alias tmux="tmux -2"
+# alias tmux="tmux -2"
 alias c='rm -rf ./logs/* '
 alias sshk="ssh -o KexAlgorithms=diffie-hellman-group1-sha1 -o Ciphers=aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc "
 alias sshk-copy-id="ssh-copy-id -o KexAlgorithms=diffie-hellman-group1-sha1 -o Ciphers=aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc "

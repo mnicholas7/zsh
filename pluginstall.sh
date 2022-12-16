@@ -18,9 +18,6 @@ for i in ${REQUIRE[@]}; do
   fi
 done
 
-# not gonna test for these just run 'em KISS 
-sudo apt install ruby-dev ruby-colorize -y
-sudo gem install colorls
 
 # install oh-my-zsh plugin mgr
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -188,5 +185,22 @@ else
   ~/PUBREPOS/fzf/install
 fi
 
+UNAME=$(uname)
+case $UNAME in
+  Darwin)
+    echo "Think Different"
+    sudo port install ruby-devel ruby-colorize -y
+    sudo gem install colorls
+    ;;
+  Linux)
+    echo "Ah, I see you like penguins ..."
+    sudo apt install ruby-dev ruby-colorize -y
+    sudo gem install colorls
+    ;;
+    *)
+    echo "no idea what kinda system this is, but it sucks"
+    ;;
+esac
+# not gonna test for these just run 'em KISS 
 
 
