@@ -151,13 +151,21 @@ source ~/.varpriv
 #  
 
 # Check whether we've appended here already before doing it again ,.. and AGAIN ...., and AGAIN ....
-YES=$(grep 'rAK0JBaJtWkgV0' ~/.bashrc)
-if [[ -e $YES ]]
+YESA=$(grep 'rAK0JBaJtWkgV0' ~/.bashrc)
+YESB=$(grep 'rAK0JBaJtWkgV0' ~/.bash_profile)
+if [[ -e $YESA ]]
 then
   echo "- already appended to ~/.bashrc previously .. skip"
   echo "  - if you'd like to refresh your .bashrc , remove the last line containing: rAK0JBaJtWkgV0 !"
 else
   cat ~/.bashmn >> ~/.bashrc
+fi
+if [[ -e $YESB ]]
+then
+  echo "- already appended to ~/.bash_profile previously .. skip"
+  echo "  - if you'd like to refresh your .bashrc , remove the last line containing: rAK0JBaJtWkgV0 !"
+else
+  cat ~/.bashmn >> ~/.bash_profile
 fi
 
 TEST=$( echo $SHELL | awk -F/ '{print $NF}' )
