@@ -184,14 +184,14 @@ else
   echo ".. couldn't determine your shell so not sourcing any .bashrc or .zshrc "
 fi
 
-
-# save for last
-# fuzzy finder
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/PUBREPOS/fzf
-
-#
-# install fzf
-~/PUBREPOS/fzf/install
+FZF=$( which fzf | awk -F/ '{print $NF}' )
+if [[ $FZF ==  fzf ]]; then
+  echo ".. fzf already intstalled.. skip"
+else
+  echo ".. installing fzf , get ready .."
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/PUBREPOS/fzf
+  ~/PUBREPOS/fzf/install
+fi
 
 
 
