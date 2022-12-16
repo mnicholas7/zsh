@@ -68,7 +68,7 @@ REQ_DIRS=( "bin" "py" "jq" "aws" "jinja" "PRIVREPOS" "PUBREPOS" )
 
 for i in ${REQ_DIRS[@]}; do
   echo "checking if dir exists: $i ..."
-  if [[ -e $i ]]; then
+  if [[ -e ${HOME}/$i ]]; then
     echo " - dir exists $i , skip .."
   else
     mkdir ${HOME}/$i 
@@ -115,11 +115,6 @@ git clone https://github.com/tmux-plugins/tmux-sensible.git \
 git clone https://github.com/wfxr/tmux-power.git \
     ${TMUX_CUSTOM:-~/.tmux/plugins}/tmux-power
 
-TEST=$( echo $SHELL | awk -F/ '{print $NF}' )
-if [[ $TEST == zsh ]]
-then
-  # source ~/.zshrc
-fi
 
 # if we are inside WSL, copy some files to our PS home dir
 if [[ -e  /mnt/c/windows/system32/cmd.exe ]]
@@ -176,4 +171,16 @@ then
 else
   cat ~/.bashmn >> ~/.bashrc
 fi
+
+TEST=$( echo $SHELL | awk -F/ '{print $NF}' )
+if [[ $TEST == zsh ]]; then
+  echo ".. sourcing .zshrc "
+  source ~/.zshrc
+elif [[ $TEST == bash ]]; then
+  echo ".. sourcing .bashrc "
+  source ~/.bashrc
+else
+  echo ".. couldn't determine your shell so not sourcing any .bashrc or .zshrc "
+fi
+
 
