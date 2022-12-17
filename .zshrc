@@ -116,12 +116,12 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-source ~/.alias
-source ~/.func
-source ~/.var
-source ~/.aliaspriv
-source ~/.funcpriv
-source ~/.varpriv
+source ~/.alias     &> /dev/null
+source ~/.func     &> /dev/null
+source ~/.var     &> /dev/null
+source ~/.aliaspriv     &> /dev/null
+source ~/.funcpriv     &> /dev/null
+source ~/.varpriv     &> /dev/null
 
 zstyle ':completion:*' menu select
 zmodload zsh/complist
