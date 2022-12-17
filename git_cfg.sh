@@ -1,3 +1,3 @@
-git config  user.email "mikeuguru@yahoo.com"
-git config  user.name "mikeuguru"
+git config  user.email "xmikenicholasx@gmail.com"
+git config  user.name "mnicholas7"
 

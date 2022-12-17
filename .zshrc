@@ -119,6 +119,9 @@ source $ZSH/oh-my-zsh.sh
 source ~/.alias
 source ~/.func
 source ~/.var
+source ~/.aliaspriv
+source ~/.funcpriv
+source ~/.varpriv
 
 zstyle ':completion:*' menu select
 zmodload zsh/complist
