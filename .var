@@ -31,7 +31,8 @@ export PATH="$PATH:$HOME/PUBREPOS/fzf/bin"
  
 
 export EDITOR=vi
-export PYTHONPATH=${HOME}/py:/usr/local/bin/
+PYTHONPATH=""
+export PYTHONPATH=/usr/local/bin/:${HOME}/py
 export PYTHONSTARTUP=${HOME}/.pythonrc
 export OPENER=code
 

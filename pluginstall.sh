@@ -85,10 +85,10 @@ cp .func  ~/ && chown ${ME}:${MYGRP} ~/.func
 cp .var   ~/ && chown ${ME}:${MYGRP} ~/.var
 
 if [[ -d ~/PRIVREPOS/zsh ]]; then
-  cp ~/PRIVREPOS/zsh/.aliaspriv ~/ && chown ${ME}:${MYGRP} ~/.aliaspriv
-  cp ~/PRIVREPOS/zsh/.funcpriv  ~/ && chown ${ME}:${MYGRP} ~/.funcpriv
-  cp ~/PRIVREPOS/zsh/.varpriv   ~/ && chown ${ME}:${MYGRP} ~/.varpriv
-  cp ~/PRIVREPOS/zsh/m          ~/ && chown ${ME}:${MYGRP} ~/m
+  cp ~/PRIVREPOS/zsh/.aliaspriv ~/ && chown ${ME}:${MYGRP} ~/.aliaspriv  &> /dev/null
+  cp ~/PRIVREPOS/zsh/.funcpriv  ~/ && chown ${ME}:${MYGRP} ~/.funcpriv  &> /dev/null
+  cp ~/PRIVREPOS/zsh/.varpriv   ~/ && chown ${ME}:${MYGRP} ~/.varpriv  &> /dev/null
+  cp ~/PRIVREPOS/zsh/m          ~/ && chown ${ME}:${MYGRP} ~/m        &> /dev/null
 fi
 
 
@@ -128,13 +128,6 @@ then
   fi
 fi
 
-
-source ~/.alias
-source ~/.func
-source ~/.var
-source ~/.aliaspriv
-source ~/.funcpriv
-source ~/.varpriv
 
 # CURL=$(which curl)
 # if [[ -e $CURL ]]
