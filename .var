@@ -7,6 +7,13 @@ if [[ -e /etc/environment ]]; then
   PATH="$PATH:/mnt/c/Windows/System32"
   export PATH="$PATH:/mnt/c/Users/Michael.Nicholas/AppData/Local/Programs/Microsoft VS Code/bin"
   export DISPLAY=127.0.0.1:0
+
+  # not sure if this is needed forever but saving here for now
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
 elif [[ -e /etc/paths ]]; then
   # OS X
   PATH=""

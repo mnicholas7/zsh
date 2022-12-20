@@ -81,3 +81,14 @@ function stamp() {
 		echo "Creating ./logs dir ... " && mkdir logs;
 	fi;
 }
+
+function dpkgq() {  
+    dpkg-query --list |                  \
+    awk '$1 == "ii"                      \
+    {                                    \
+      F = $2; gsub( /:(.*)?/, "", F ) ;  \
+      gsub( /\n/, "", F );               \
+      gsub( /:/, "", F );                \
+      print F                            \
+    }'
+}

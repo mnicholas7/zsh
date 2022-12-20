@@ -29,5 +29,4 @@ alias ffind="find . -type f | fzf"
 alias dfind="find . -type d | fzf"
 
 alias vim="nv"
-alias dpkgq="dpkg-query --list | awk '$1 == "ii" { F = $2; gsub( /:(.*)?/, "", F ) ; gsub( /\n/, "", F ); gsub( /:/, "", F );print F }'
 
