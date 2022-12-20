@@ -62,7 +62,7 @@ else
 fi
 
 declare -a REQ_DIRS
-REQ_DIRS=( "bin" "py" "jq" "aws" "jinja" "PRIVREPOS" "PUBREPOS" )
+REQ_DIRS=( "bin" "py" "jq" "aws" "jinja" "lua" "go" "PRIVREPOS" "PUBREPOS" )
 
 for i in ${REQ_DIRS[@]}; do
   echo "checking if dir exists: $i ..."
@@ -211,13 +211,26 @@ case $UNAME in
     ;;
   Linux)
     echo "Ah, I see you like penguins ..."
-    sudo apt install ruby-dev ruby-colorize -y
-    sudo gem install colorls
+    # colorls too slow! use lsd instead!
+    # sudo apt install ruby-dev ruby-colorize -y
+    # sudo gem install colorls
+
+    # try lsd, colorls very slow
+
+    if [[ ! -d ~/PUBREPOS/lsd ]]; then
+
+        mkdir ~/PUBREPOS/lsd
+        wget https://github.com/Peltoche/lsd/releases/download/0.23.1/lsd_0.23.1_amd64.deb -P ~/PUBREPOS/lsd/
+        sudo dpkg -i ~/PUBREPOS/lsd/lsd_0.23.1_amd64.deb 
+    fi
     ;;
     *)
     echo "no idea what kinda system this is, but it sucks, that much I can tell you.. "
     ;;
 esac
 # not gonna test for these just run 'em KISS 
+
+
+
 
 

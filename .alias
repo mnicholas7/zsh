@@ -1,8 +1,8 @@
 # MN Personal alias'
 alias tt="ls -ltaF"
 alias ff="ls -taF"
-alias t="colorls -lta"
-alias f="colorls -ta"
+alias t="lsd -lta"
+alias f="lsd -ta"
 alias e="exit"
 # alias tmux="tmux -2"
 alias c='rm -rf ./logs/* '
@@ -27,3 +27,5 @@ alias startVncServer="tigervncserver -localhost no -xstartup /usr/bin/startplasm
 
 alias ffind="find . -type f | fzf"
 alias dfind="find . -type d | fzf"
+
+alias vim="nv"
