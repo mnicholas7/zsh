@@ -6,6 +6,7 @@ if [[ -e /etc/environment ]]; then
   PATH="$PATH:/mnt/c/Program Files (x86)/Nmap"
   PATH="$PATH:/mnt/c/Windows/System32"
   export PATH="$PATH:/mnt/c/Users/Michael.Nicholas/AppData/Local/Programs/Microsoft VS Code/bin"
+  export DISPLAY=127.0.0.1:0
 elif [[ -e /etc/paths ]]; then
   # OS X
   PATH=""
