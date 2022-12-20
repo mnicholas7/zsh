@@ -1,10 +1,13 @@
 
 if [[ -e /etc/environment ]]; then
+  # Ubuntu
   PATH=""
   source /etc/environment
   PATH="$PATH:/mnt/c/Program Files (x86)/Nmap"
+  PATH="$PATH:/mnt/c/Windows/System32"
   export PATH="$PATH:/mnt/c/Users/Michael.Nicholas/AppData/Local/Programs/Microsoft VS Code/bin"
 elif [[ -e /etc/paths ]]; then
+  # OS X
   PATH=""
   PATH="$(/bin/cat /etc/paths /etc/paths.d/100-rvictl /etc/manpaths  | /usr/bin/awk '{printf ":" $0 }')"
   # export PATH
