@@ -11,35 +11,35 @@ api.nvim_create_autocmd("TextYankPost", {
 -- lua exec file
 api.nvim_create_autocmd(
   "FileType",
-  { pattern = { "lua" }, command = [[noremap  <buffer><F3>      :w<CR>:exec '!lua -i' shellescape(@%, 1)<CR>]] }
+  { pattern = { "lua" }, command = [[noremap  <buffer><F3>      :w<CR>:exec 'terminal lua -i' shellescape(@%, 1)<CR>]] }
 )
 
 api.nvim_create_autocmd(
   "FileType",
-  { pattern = { "lua" }, command = [[inoremap <buffer><F3> <esc>:w<CR>:exec '!lua -i' shellescape(@%, 1)<CR>]] }
+  { pattern = { "lua" }, command = [[inoremap <buffer><F3> <esc>:w<CR>:exec 'terminal lua -i' shellescape(@%, 1)<CR>]] }
 )
 --
 --
 -- perl exec file
 api.nvim_create_autocmd(
   "FileType",
-  { pattern = { "perl" }, command = [[noremap  <buffer><F4>      :w<CR>:exec '!perl -d' shellescape(@%, 1)<CR>]] }
+  { pattern = { "perl" }, command = [[noremap  <buffer><F4>      :w<CR>:exec 'terminal perl -d' shellescape(@%, 1)<CR>]] }
 )
 
 api.nvim_create_autocmd(
   "FileType",
-  { pattern = { "perl" }, command = [[inoremap <buffer><F4> <esc>:w<CR>:exec '!perl -d' shellescape(@%, 1)<CR>]] }
+  { pattern = { "perl" }, command = [[inoremap <buffer><F4> <esc>:w<CR>:exec 'terminal perl -d' shellescape(@%, 1)<CR>]] }
 )
 --
 -- zsh exec file
 api.nvim_create_autocmd(
   "FileType",
-  { pattern = { "zsh" }, command = [[noremap  <buffer><F5>      :w<CR>:exec '!zsh -x -o shwordsplit' shellescape(@%, 1)<CR>]] }
+  { pattern = { "zsh" }, command = [[noremap  <buffer><F5>      :w<CR>:exec 'terminal zsh -x -o shwordsplit' shellescape(@%, 1)<CR>]] }
 )
 
 api.nvim_create_autocmd(
   "FileType",
-  { pattern = { "zsh" }, command = [[inoremap <buffer><F5> <esc>:w<CR>:exec '!zsh -x -o shwordsplit' shellescape(@%, 1)<CR>]] }
+  { pattern = { "zsh" }, command = [[inoremap <buffer><F5> <esc>:w<CR>:exec 'terminal zsh -x -o shwordsplit' shellescape(@%, 1)<CR>]] }
 )
 -- bash exec file 
 api.nvim_create_autocmd(
