@@ -226,7 +226,13 @@ case $UNAME in
     fi
 
     # yanking from nvim to sys clip req's this
-    sudo aptitude install xsel -y
+    XSEL=$( which xsel | awk -F/ '{print $NF}' )
+    if [[ $XSEL ==  xsel ]]; then
+      echo ".. xsel already intstalled.. skip"
+    else
+      echo ".. installing xsel , get ready .."
+      sudo aptitude install xsel -y
+    fi
 
     # copy neovim lua config files over
     cp ~/PUBREPOS/zsh/neovim/lua/*lua ~/PUBREPOS/neovim/runtime/lua/
