@@ -1,0 +1,7 @@
+# VIMRUNTIME=$HOME/PUBREPOS/neovim/runtime $HOME/PUBREPOS/neovim/build/bin/nvim
+#NVIM_RPLUGIN_MANIFEST=$HOME/.local/share/nvim-nightly/rplugin.vim 
+# NVIM_LISTEN_ADDRESS=/tmp/nvim VIMRUNTIME=$HOME/PUBREPOS/neovim/runtime $HOME/PUBREPOS/neovim/build/bin/nvim "$@"  -u $HOME/.config/nvim-nightly/init.lua 
+export VIMRUNTIME=$HOME/PUBREPOS/neovim/runtime
+NVIM_LISTEN_ADDRESS=/tmp/nvim $HOME/PUBREPOS/neovim/build/bin/nvim "$@" -u $VIMRUNTIME/lua/init.lua
+
+
