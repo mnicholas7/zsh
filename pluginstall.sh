@@ -161,8 +161,8 @@ fi
 
 TEST=$( echo $SHELL | awk -F/ '{print $NF}' )
 if [[ $TEST == zsh ]]; then
-  echo ".. sourcing .zshrc "
-  source ~/.zshrc
+  echo ".. not auto sourcing .zshrc "
+  # source ~/.zshrc
 elif [[ $TEST == bash ]]; then
   echo ".. sourcing .bashrc "
   source ~/.bashrc

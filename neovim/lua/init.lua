@@ -1,21 +1,21 @@
-local set = vim.opt
+-- local set = vim.opt
 
 
 
-set.clipboard = 'unnamedplus'
-set.mouse = '' 
-set.hlsearch = true
-set.incsearch = true
-set.ruler = true
-set.showcmd = true
-set.expandtab = true
-set.shiftwidth = 2
-set.softtabstop = 2
-set.showcmd = true
-set.foldmethod = 'indent'
--- set.foldcolumn = '1'
-set.laststatus = 2
-set.listchars = 'tab:†ⅱ,trail:Ѫ,eol:$,nbsp:ϟ'
+vim.opt.clipboard = 'unnamedplus'
+vim.opt.mouse = '' 
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+vim.opt.ruler = true
+vim.opt.showcmd = true
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.showcmd = true
+vim.opt.foldmethod = 'indent'
+vim.opt.foldcolumn = '1'
+vim.opt.laststatus = 2
+vim.opt.listchars = 'tab:†ⅱ,trail:Ѫ,eol:$,nbsp:ϟ'
 
 
 
@@ -36,6 +36,9 @@ set.listchars = 'tab:†ⅱ,trail:Ѫ,eol:$,nbsp:ϟ'
 
 
 vim.g.mapleader = " "
+--
+-- switch back to netrw
+vim.keymap.set("n", "<leader>o", vim.cmd.Ex)
 
 -- " " Copy to clipboard
 
@@ -133,8 +136,8 @@ return require('packer').startup(function(use)
     require('packer').sync()
   end
 
-set.signcolumn = 'yes'
-set.termguicolors = true
+vim.opt.signcolumn = 'yes'
+vim.opt.termguicolors = true
 pcall(vim.cmd, 'colorscheme onedark')
 
 require("transparent").setup({
