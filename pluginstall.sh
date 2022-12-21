@@ -1,3 +1,4 @@
+#!/bin/bash
 # source this file instead of marking exec so you can be in zsh or bash and it still mostly works the same!
 
 ME=$(whoami)
@@ -226,6 +227,9 @@ case $UNAME in
 
     # yanking from nvim to sys clip req's this
     sudo aptitude install xsel -y
+
+    # copy neovim lua config files over
+    cp ~/PUBREPOS/zsh/neovim/lua/*lua ~/PUBREPOS/neovim/runtime/lua/
 
     ;;
     *)

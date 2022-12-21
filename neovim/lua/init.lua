@@ -160,7 +160,8 @@ require'lspconfig'.pyright.setup{}
 require('mnlualine')
 -- 'mnauto' is located here: ~/PUBREPOS/neovim/runtime/lua
 require('mnauto')
--- require('coq')
+-- 'lualspconfig' is located here: ~/PUBREPOS/neovim/runtime/lua
+require('lualspconfig')
 --
 local lsp = require('lsp-zero')
 
