@@ -235,7 +235,9 @@ case $UNAME in
     fi
 
     # copy neovim lua config files over
-    cp ~/PUBREPOS/zsh/neovim/lua/*lua ~/PUBREPOS/neovim/runtime/lua/
+    if [[ -e ~/PUBREPOS/neovim/runtime/lua/ ]]; then
+      cp ~/PUBREPOS/zsh/neovim/lua/*lua ~/PUBREPOS/neovim/runtime/lua/
+    fi
 
     ;;
     *)
