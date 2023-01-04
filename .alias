@@ -28,5 +28,7 @@ alias startVncServer="tigervncserver -localhost no -xstartup /usr/bin/startplasm
 alias ffind="find . -type f | fzf"
 alias dfind="find . -type d | fzf"
 
-alias vim="nv"
+if [[ -e /home/mnicholas/PUBREPOS/neovim/build/bin/nvim ]]; then
+  alias vim="nv"
+fi
 
