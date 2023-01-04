@@ -142,8 +142,13 @@ fi
 #  
 
 # Check whether we've appended here already before doing it again ,.. and AGAIN ...., and AGAIN ....
-YESA=$(grep 'rAK0JBaJtWkgV0' ~/.bashrc)
-YESB=$(grep 'rAK0JBaJtWkgV0' ~/.bash_profile)
+
+if [[ -e ~/.bashrc ]]; then
+  YESA=$(grep 'rAK0JBaJtWkgV0' ~/.bashrc)
+elif [[ -e ~/.bash_profile ]]; then
+  YESB=$(grep 'rAK0JBaJtWkgV0' ~/.bash_profile)
+fi
+
 if [[ -n $YESA ]]
 then
   echo "- already appended to ~/.bashrc previously .. skip"
