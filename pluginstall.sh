@@ -85,11 +85,11 @@ cp .alias ~/ && chown ${ME}:${MYGRP} ~/.alias
 cp .func  ~/ && chown ${ME}:${MYGRP} ~/.func
 cp .var   ~/ && chown ${ME}:${MYGRP} ~/.var
 
-if [[ -d ~/PRIVREPOS/zsh ]]; then
-  cp ~/PRIVREPOS/zshpriv/.aliaspriv ~/ && chown ${ME}:${MYGRP} ~/.aliaspriv  &> /dev/null
-  cp ~/PRIVREPOS/zshpriv/.funcpriv  ~/ && chown ${ME}:${MYGRP} ~/.funcpriv  &> /dev/null
-  cp ~/PRIVREPOS/zshpriv/.varpriv   ~/ && chown ${ME}:${MYGRP} ~/.varpriv  &> /dev/null
-  cp ~/PRIVREPOS/zshpriv/m          ~/ && chown ${ME}:${MYGRP} ~/m        &> /dev/null
+if [[ -d ~/PRIVREPOS/zsh.priv ]]; then
+  cp ~/PRIVREPOS/zsh.priv/.aliaspriv ~/ && chown ${ME}:${MYGRP} ~/.aliaspriv  &> /dev/null
+  cp ~/PRIVREPOS/zsh.priv/.funcpriv  ~/ && chown ${ME}:${MYGRP} ~/.funcpriv  &> /dev/null
+  cp ~/PRIVREPOS/zsh.priv/.varpriv   ~/ && chown ${ME}:${MYGRP} ~/.varpriv  &> /dev/null
+  cp ~/PRIVREPOS/zsh.priv/m          ~/ && chown ${ME}:${MYGRP} ~/m        &> /dev/null
 fi
 
 
