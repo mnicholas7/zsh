@@ -32,3 +32,4 @@ if [[ -e ~/PUBREPOS/neovim/build/bin/nvim ]]; then
   alias vim="nv"
 fi
 
+alias smtpdbug="python3 -m smtpd -c DebuggingServer -n localhost:1025"
