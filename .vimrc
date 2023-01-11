@@ -1,5 +1,6 @@
 set nocompatible
 set mouse-=a
+set guifont=Hurmit\ Nerd\ Font\ Mono 24
 syntax on
 " colorscheme evening
 " colorscheme industry
