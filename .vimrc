@@ -1,6 +1,6 @@
 set nocompatible
 set mouse-=a
-set guifont=Hurmit\ Nerd\ Font\ Mono:h16
+set guifont=TerminessTTF\ Nerd\ Font\ Mono:h16
 syntax on
 " colorscheme evening
 " colorscheme industry
