@@ -22,14 +22,85 @@ pd.set_option("display.max_columns", None)
 pd.set_option("display.width", None)
 pd.set_option("display.max_colwidth", None)
 
-def exa():
+
+def more(d: dict) -> None:
+    for k,v in d.items():
+        if d[k] == d:
+            # don't print out yourself
+            continue
+        elif k == '__builtins__':
+            # too much noise, don't care to print
+            continue
+
+        print(f"{k:20} ==> {v}")
+        _ = input()
+
+locs = locals()
+globs = globals()
+
+q = lambda: quit()
+l = lambda: more(locs)
+g = lambda: more(globs)
+
+
+
+
+def EXAG():
     stuff = globals()
     pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(stuff)
 
+def EXAL():
+    stuff = globals()
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(stuff)
 
-def rload(x):
-    importlib.reload(x)
+def EXA(STUFF):
+    STUFF = STUFF._asdict()
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(dict(STUFF))
+
+def EXAR(STUFF):
+    STUFF = STUFF._asdict()
+    pp = pprint.pformat(dict(STUFF), indent=4, compact=False)
+    return pp
+
+def RLOAD(X):
+    importlib.reload(X)
+
+def MAIL(MSG, SUB, TO, FILE=None):
+
+    MSG = f"""
+<html>
+<head>
+</head>
+<body>
+<pre style="white-space: pre">
+{MSG}
+</pre>
+</body>
+"""
+
+    if FILE:
+      COMMAND = f"/usr/bin/mail -a 'Content-Type: text/html; charset=UTF-8' -A {FILE} -s '{SUB}' {TO} << EOF\n{MSG}\nEOF"
+    else:
+      COMMAND = f"/usr/bin/mail -a 'Content-Type: text/html; charset=UTF-8' -s '{SUB}' {TO} << EOF\n{MSG}\nEOF"
+
+  
+    try:
+        RESULT = subprocess.run(COMMAND, input=None, stderr=subprocess.PIPE, stdout=subprocess.PIPE, timeout=10, encoding='utf-8', shell=True)
+
+        if RESULT:
+            if RESULT.returncode == 0:
+                return True
+            else:
+                return False
+        else:
+            return False
+    except:
+        pass
+
+
 
 def SLEEP_AND_NETCAT(HOSTNAME, LOGNAME):
 
@@ -37,10 +108,50 @@ def SLEEP_AND_NETCAT(HOSTNAME, LOGNAME):
         r".*succeeded.*", os.popen(f"nc -vv -w5 {HOSTNAME} 22 2>&1 ").read().rstrip()
     ):
         TIME = os.popen("date").read()
-        MSG = f"\n  -> TCP port 22(ssh), NOT UP yet on: {HOSTNAME} at {TIME}"
+        MSG = f"\n  SLEEP_AND_NETCAT() -> TCP port 22(ssh), NOT UP yet on: {HOSTNAME} at {TIME}"
         print(MSG)
         stringAppendToFile(MSG, "main", LOGNAME)
+
+        print(f"SNOOZE 30: {HOSTNAME}")
         SNOOZE(30)
+
+    return None, None
+
+def SLEEP_AND_NETCAT2(HOSTNAME, LOGNAME):
+
+    COMMAND = f"nc -vv -w5 {HOSTNAME} 22 "
+
+    def RUNNIT(COMMAND):
+
+        RESULT = subprocess.run(COMMAND, input=None, stderr=subprocess.PIPE, stdout=subprocess.PIPE, timeout=10, encoding='utf-8', shell=True)
+
+        if RESULT:
+
+            if RESULT.returncode == 0:
+
+                TIME = os.popen("date").read()
+                MSG = f"\n  SLEEP_AND_NETCAT2(): returned SUCCESSFUL {RESULT.returncode=} {HOSTNAME} at {TIME}"
+                MSG += f"\n  {RESULT.stdout=} {RESULT.stderr=}"
+                print(MSG)
+                stringAppendToFile(MSG, "main", LOGNAME)
+
+                return RESULT.stdout, RESULT.stderr
+
+            else:
+
+                TIME = os.popen("date").read()
+                MSG = f"\n  SLEEP_AND_NETCAT2(): returned {RESULT.returncode=} {HOSTNAME} at {TIME}"
+                MSG += f"\n  {RESULT.stdout=} {RESULT.stderr=}"
+                print(MSG)
+                stringAppendToFile(MSG, "main", LOGNAME)
+
+                return RESULT.stdout, RESULT.stderr
+
+
+    STDOUT, STDERR = RUNNIT(COMMAND)
+
+    return STDOUT, STDERR
+
 
 
 def SNOOZE(x):
@@ -142,7 +253,7 @@ def BIG_PRETTY_BOX(MSG):
     EIGHT = round(MAX_PAD / 8)
     EIGHT_RAND_INT = random.randint(1, EIGHT)
     DIFF_EIGHT = EIGHT - EIGHT_RAND_INT
-    
+
 
     E1 = EIGHT_RAND_INT
     E2 = DIFF_EIGHT
@@ -217,21 +328,19 @@ def BIG_PRETTY_BOX(MSG):
 
     return(MSG)
 
-def PRETTY_TEST(LOOPCOUNT):
+def t(LOOPCOUNT):
 
     for i in range(1, LOOPCOUNT):
         x = RAND_CH()
-    
+
         MSG = f"""
-                                                                    
-        {x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}
-        {x}                                                        {x}  
-        {x} [ZZChitownMNO04] BEFORE: [Active ] ¿? AFTER: [Standby] {x}  
-        {x}                                                        {x}  
-        {x} [ZZChitownMNO05] BEFORE: [Standby] ?¿ AFTER: [Active ] {x}  
-        {x}                                                        {x}  
-        {x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}{x}
-    
+
+        {x}                                                        {x}
+        {x} [ZZChitownMNO04] BEFORE: [Active ] ¿? AFTER: [Standby] {x}
+        {x}                                                        {x}
+        {x} [ZZChitownMNO05] BEFORE: [Standby] ?¿ AFTER: [Active ] {x}
+        {x}                                                        {x}
+
         """
         x = RAND_CH()
         print(PRETTY_BOX(f"This is iteration {i}",9,1))
@@ -239,7 +348,9 @@ def PRETTY_TEST(LOOPCOUNT):
         print(PRETTY_BOX(MSG,9,1))
         # print(PRETTY_BOX(PRETTY_BOX(MSG)))
         # print(PRETTY_BOX(PRETTY_BOX(PRETTY_BOX(MSG))))
-        SNOOZE(4)
+        print('just say when')
+        x = input()
+        #SNOOZE(10)
 
 
 def PRETTY_BOX(MSG,COMPLEXITY,QUIET=None):
@@ -336,39 +447,42 @@ def PRETTY_BOX(MSG,COMPLEXITY,QUIET=None):
 
         OPT = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
 
+        """
+
         if VERT_SPACE == OPT[0]:
             pass
 
         elif VERT_SPACE == OPT[1]:
-            LIST = ['\n'] + LIST[:] + ['\n']
+            LIST = ['\n<11>'] + LIST[:] + ['\n<11>']
 
         elif VERT_SPACE == OPT[2]:
 
-            LIST = ['\n','\n'] + LIST[:] + ['\n','\n']
+            LIST = ['\n<22>','\n<22>'] + LIST[:] + ['\n<22>','\n<22>']
 
         elif VERT_SPACE == OPT[3]:
 
-            LIST = ['\n','\n','\n'] + LIST[:] + ['\n','\n']
+            LIST = ['\n<23>','\n<23>','\n<23>'] + LIST[:] + ['\n<23>','\n<23>']
 
         elif VERT_SPACE == OPT[4]:
 
-            LIST = ['\n'] + LIST[:]
+            LIST = ['\n<24>'] + LIST[:]
 
         elif VERT_SPACE == OPT[5]:
 
-            LIST = ['\n','\n'] + LIST[:] 
+            LIST = ['\n<25>','\n<25>'] + LIST[:]
 
         elif VERT_SPACE == OPT[6]:
 
-            LIST = ['\n','\n','\n'] + LIST[:]
+            LIST = ['\n<26>','\n<26>','\n<26>'] + LIST[:]
 
         elif VERT_SPACE == OPT[7]:
 
-            LIST = ['\n'] + LIST[:]
+            LIST = ['\n<27>'] + LIST[:]
 
         elif VERT_SPACE == OPT[8]:
 
-            LIST = LIST[:] + ['\n'] 
+            LIST = LIST[:] + ['\n<28>']
+        """
 
 
         # if it begins with more than one space, make it two
@@ -379,10 +493,24 @@ def PRETTY_BOX(MSG,COMPLEXITY,QUIET=None):
         #    LINE = re.sub(r"(\S)+$", r"\1  ", LINE)
 
         MAX_PAD = max([len(i) for i in LIST])
+        #MAX_PAD += random.randint(0, 4)
+
+        Z = RAND_CH()
+        for i in range(0, random.randint(0, 4)):
+            LIST.insert(0,Z)
+            if random.randint(0, 99) % 2 == 0:
+              LIST.append(Z)
+
+
 
         #MSG += "\n".join([f"|{line:{MAX_PAD}}|" for line in LIST])
-        if len(LIST) > 1:
-            MSG += "\n".join([f"{line:{MAX_PAD}}" for line in LIST])
+        if len(LIST) > 0:
+            #MSG += "\n".join([f"{line:{MAX_PAD}}" for line in LIST])
+            for line in LIST:
+                MSG += "\n".join(f"{line:{MAX_PAD}}")
+
+        #breakpoint()
+
 
         x = RAND_CH()
 
@@ -394,7 +522,7 @@ def PRETTY_BOX(MSG,COMPLEXITY,QUIET=None):
         EIGHT = round(MAX_PAD / 8)
         EIGHT_RAND_INT = random.randint(1, EIGHT)
         DIFF_EIGHT = EIGHT - EIGHT_RAND_INT
-        
+
 
         E1 = EIGHT_RAND_INT
         E2 = DIFF_EIGHT
@@ -419,39 +547,45 @@ def PRETTY_BOX(MSG,COMPLEXITY,QUIET=None):
         #"""
 
 
+        # BOX1 = f"""(1){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX1 = f"""
-{x *     3}{' ' * int(DIFF_INT2)}{x * int((DIFF_INT2))}{' ' * int(DIFF_INT2)}{x * RAND_INT}   
+{x *     3}{' ' * int(DIFF_INT2)}{x * int((DIFF_INT2))}{' ' * int(DIFF_INT2)}{x * RAND_INT}
 {NL.    join([f"{x}{line:{int(MAX_PAD )}}{x}" for line in LIST])}
 {x *     RAND_INT}{' ' * int(DIFF_INT2)}{x * int((DIFF_INT2))}{' ' * int(DIFF_INT2)}{x * 3}
 """
+        # BOX1A = f"""(1a){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX1A = f"""
-{x *     3}{' ' * int(DIFF_INT2)}{x * int((DIFF_INT2))}{' ' * int(DIFF_INT2)}{x * RAND_INT}   
+{x *     3}{' ' * int(DIFF_INT2)}{x * int((DIFF_INT2))}{' ' * int(DIFF_INT2)}{x * RAND_INT}
 {NL.    join([f"{line:{int(MAX_PAD )}}" for line in LIST])}
 {x *     RAND_INT}{' ' * int(DIFF_INT2)}{x * int((DIFF_INT2))}{' ' * int(DIFF_INT2)}{x * 3}
 """
+        # BOX2 = f"""(2){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX2 = f"""
 {x *     RAND_INT}{' ' * int(DIFF_INT2)}{x * int((DIFF_INT2))}{' ' * int(DIFF_INT2)}{x * 3}
 {NL.    join([f"{x}{line:{int(MAX_PAD )}}{x}" for line in LIST])}
-{x *     3}{' ' * int(DIFF_INT2)}{x * int((DIFF_INT2))}{' ' * int(DIFF_INT2)}{x * RAND_INT}   
+{x *     3}{' ' * int(DIFF_INT2)}{x * int((DIFF_INT2))}{' ' * int(DIFF_INT2)}{x * RAND_INT}
 """
+        # BOX2A = f"""(2a){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX2A = f"""
 {x *     RAND_INT}{' ' * int(DIFF_INT2)}{x * int((DIFF_INT2))}{' ' * int(DIFF_INT2)}{x * 3}
 {NL.    join([f"{line:{int(MAX_PAD )}}" for line in LIST])}
-{x *     3}{' ' * int(DIFF_INT2)}{x * int((DIFF_INT2))}{' ' * int(DIFF_INT2)}{x * RAND_INT}   
+{x *     3}{' ' * int(DIFF_INT2)}{x * int((DIFF_INT2))}{' ' * int(DIFF_INT2)}{x * RAND_INT}
 """
 
+        # BOX3 = f"""(3){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX3 = f"""
 {' '     * int(DIFF_INT2)}{x * int((DIFF_INT2))}{' ' * int(DIFF_INT2)}{x * RAND_INT}
 {NL.    join([f"{x}{line:{int(MAX_PAD )}}{x}" for line in LIST])}
 {x *     RAND_INT}{' ' * int(DIFF_INT2)}{x * int((DIFF_INT2))}{' ' * int(DIFF_INT2)}
 """
 
+        # BOX4 = f"""(4){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX4 = f"""
-{' '     * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}
 {NL.    join([f"{x}{line:{int(MAX_PAD )}}{x}" for line in LIST])}
 {x *     int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}
 """
 
+        # BOX5 = f"""(5){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX5 = f"""
 {x *     int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x}
 {NL.    join([f"{x}{line:{int(MAX_PAD )}}{x}" for line in LIST])}
@@ -459,104 +593,125 @@ def PRETTY_BOX(MSG,COMPLEXITY,QUIET=None):
 """
 
 
+        # BOX6 = f"""(6){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX6 = f"""
 {x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{x * QUAD_RAND_INT}{x * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{x * QUAD_RAND_INT}
 {NL.    join([f"{line:{int(MAX_PAD )}}" for line in LIST])}
 {x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{x * QUAD_RAND_INT}{x * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{x * QUAD_RAND_INT}
 """
+        # BOX7 = f"""(7){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX7 = f"""
 {x *     int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}
 {NL.    join([f"{line:{int(MAX_PAD )}}" for line in LIST])}
 {x *     int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}
 """
 
+        # BOX8 = f"""(8){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX8 = f"""
 {x *     int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x}
 {NL.    join([f"{x}{line:{int(MAX_PAD )}}{x}" for line in LIST])}
 {x *     int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x}
 """
+        # BOX9 = f"""(9){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX9 = f"""
 {x *     int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x}
 {NL.    join([f"{x}{line:{int(MAX_PAD )}}{x}" for line in LIST])}
 {x}{    ' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}
 """
+        # BOX9A = f"""(9A){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX9A = f"""
 {x *     int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x}
 {NL.    join([f"{line:{int(MAX_PAD )}}" for line in LIST])}
 {x}{    ' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}
 """
 
+        # BOX10 = f"""(10){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX10 = f"""
-{x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{x * QUAD_RAND_INT}{x * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2 + 1)}{x * QUAD_RAND_INT}
+{x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2 )}{x * QUAD_RAND_INT}{x * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2 + 1)}{x * QUAD_RAND_INT}
 {NL.    join([f"{x}{line:{int(MAX_PAD )}}{x}" for line in LIST])}
-{x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{x * QUAD_RAND_INT}{x * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2 + 1)}{x * QUAD_RAND_INT}
+{x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2 )}{x * QUAD_RAND_INT}{x * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2 + 1)}{x * QUAD_RAND_INT}
 """
+        # BOX11 = f"""(11){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX11 = f"""
 {x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{' ' * QUAD_RAND_INT}{' ' * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2 + 1)}{x * QUAD_RAND_INT}
 {NL.    join([f"{x}{line:{int(MAX_PAD )}}{x}" for line in LIST])}
 {x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{' ' * QUAD_RAND_INT}{' ' * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2 + 1)}{x * QUAD_RAND_INT}
 """
+        # BOX12 = f"""(12){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX12 = f"""
 {x *     THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x}
 {NL.    join([f"{x}{line:{int(MAX_PAD )}}{x}" for line in LIST])}
 {x}{    ' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}
 """
+        # BOX12A = f"""(12a){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX12A = f"""
 {x *     THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x}
 {NL.    join([f"{line:{int(MAX_PAD )}}" for line in LIST])}
 {x}{    ' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}
 """
+        # BOX13 = f"""(13){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX13 = f"""
 {x}{    ' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}
 {NL.    join([f"{x}{line:{int(MAX_PAD )}}{x}" for line in LIST])}
 {x *     THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x}
 """
+        # BOX13A = f"""(13a){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX13A = f"""
 {x}{    ' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}
 {NL.    join([f"{line:{int(MAX_PAD )}}" for line in LIST])}
 {x *     THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x * THIRD_RAND_INT}{' ' * int(DIFF_THIRD)}{x}
 """
+        # BOX14 = f"""(14){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX14 = f"""
 {x *     int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x}
 {NL.    join([f"{x}{line:{int(MAX_PAD )}}{x}" for line in LIST])}
 {x}{    ' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}
 """
+        # BOX14A = f"""(14a){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX14A = f"""
 {x *     int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x}
 {NL.    join([f"{line:{int(MAX_PAD )}}" for line in LIST])}
 {x}{    ' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}{' ' * int(E2)}{x * int(E1)}
 """
 
+        # BOX15 = f"""(15){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX15 = f"""
 {x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{' ' * QUAD_RAND_INT}{' ' * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2 + 1)}{x * QUAD_RAND_INT}
 {NL.    join([f"{x}{line:{int(MAX_PAD )}}{x}" for line in LIST])}
 {x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{' ' * QUAD_RAND_INT}{' ' * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2 + 1)}{x * QUAD_RAND_INT}
 """
+        # BOX15A = f"""(15a){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX15A = f"""
 {x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{' ' * QUAD_RAND_INT}{' ' * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2 + 1)}{x * QUAD_RAND_INT}
 {NL.    join([f"{line:{int(MAX_PAD )}}" for line in LIST])}
 {x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{' ' * QUAD_RAND_INT}{' ' * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2 + 1)}{x * QUAD_RAND_INT}
 """
+        # BOX16 = f"""(16){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX16 = f"""
 {x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{x * QUAD_RAND_INT}{x * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2 + 1)}{x * QUAD_RAND_INT}
 {NL.    join([f"{x}{line:{int(MAX_PAD )}}{x}" for line in LIST])}
 {x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{x * QUAD_RAND_INT}{x * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2 + 1)}{x * QUAD_RAND_INT}
 """
+        # BOX17 = f"""(17){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX17 = f"""
 {x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{' ' * QUAD_RAND_INT}{' ' * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{x * QUAD_RAND_INT}
 {NL.    join([f"{line:{int(MAX_PAD )}}" for line in LIST])}
 {x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{' ' * QUAD_RAND_INT}{' ' * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{x * QUAD_RAND_INT}
 """
+        # BOX18 = f"""(18){MAX_PAD=} {QUAD=} {EIGHT=} {THIRD=} {x=}
         BOX18 = f"""
 {x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{' ' * QUAD_RAND_INT}{' ' * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{x * QUAD_RAND_INT}
 {NL.    join([f"{line:{int(MAX_PAD )}}" for line in LIST])}
 {x *     QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{' ' * QUAD_RAND_INT}{' ' * QUAD_RAND_INT}{' ' * int(NEG_QUAD_SPACE * 2)}{x * QUAD_RAND_INT}
 """
 
-        LIST = [ BOX1,BOX1A,    BOX2,BOX2A,    BOX3,  BOX4,  BOX5,  BOX6,    BOX8,  BOX9, 
-                 BOX10, BOX11, BOX12, BOX12A, BOX13, BOX13A,  BOX14, BOX14A,  BOX15,BOX15A,  BOX16, 
+        LIST = [ BOX1,BOX1A,    BOX2,BOX2A,    BOX3,  BOX4,  BOX5,  BOX6,    BOX8,  BOX9,
+                 BOX10, BOX11, BOX12, BOX12A, BOX13, BOX13A,  BOX14, BOX14A,  BOX15,BOX15A,  BOX16,
                  BOX17, BOX18 ]
+
         #LIST = [ BOX1, BOX2, BOX3, BOX4, BOX5, BOX6, BOX7, BOX8, BOX9, BOX10, BOX11, BOX12, BOX13, BOX14, BOX15, BOX16, BOX17, BOX18 ]
+
+        # LIST = [ BOX12 , BOX10 ]
         OUT = random.choice(LIST)
         return OUT
 
@@ -570,7 +725,7 @@ def PRETTY_BOX(MSG,COMPLEXITY,QUIET=None):
         else:
             print(FIRST)
             return
-        
+
     elif LUCKY == 2 or COMPLEXITY == 2:
         FIRST = THE_THING(MSG)
         TWO = THE_THING(FIRST)
@@ -580,8 +735,8 @@ def PRETTY_BOX(MSG,COMPLEXITY,QUIET=None):
         else:
             print(TWO)
             return
-        
-        
+
+
 
     elif LUCKY == 3 or COMPLEXITY == 3:
         FIRST = THE_THING(MSG)
@@ -650,19 +805,19 @@ def PRETTY(PAD):
     return PAT
 
 # def RAND_CH(COLOR=None):
-# 
-#     mylist = [ 
-#             'Ω','∑','ф','Ш','ǒ','∆','∝','ǯ','λ', 
-#             'έ','√','♢','♣','♠','☼','ﬁ','©','¬', 
-#             '¢','æ','¿','¡','½','⑃','⑀','℗','≈', 
+#
+#     mylist = [
+#             'Ω','∑','ф','Ш','ǒ','∆','∝','ǯ','λ',
+#             'έ','√','♢','♣','♠','☼','ﬁ','©','¬',
+#             '¢','æ','¿','¡','½','⑃','⑀','℗','≈',
 #             '∀','∞','⊙','♫','¹','ý','ė','õ','ï',
 #             'φ','Ϟ','ж','Д','δ','Љ','Ψ','š','Λ','Μ','ŧ',
 #             'ש','Π','ẘ','ḿ','ق','†','₩','⁸','▢','∴','▣',
 #             '▦','▧','▩','▭','□','␣','₽','☺','◐','◑','◊',
 #             '▽','♪','ﬀ','☆']
-# 
+#
 #     CH = random.choice(mylist)
-# 
+#
 #     return str(CH)
 
 def RAND_CH(COLOR=None):
@@ -691,8 +846,8 @@ def RAND_CH(COLOR=None):
     '\033[4m',
     ]
 
-    
-    mylist = [ 
+
+    mylist = [
             'Ω','∑','ф','Ш','ǒ','∆','∝','ǯ','λ','ô','ŕ','÷',
             'έ','√','♢','♣','♠','☼',' ','ﬁ','©','¬','¬','ĳ',
             '¢','æ','¿','¡','½','⑃','⑀','℗','≈','«','»','³',
@@ -707,7 +862,7 @@ def RAND_CH(COLOR=None):
             'ы','Л','ע','ח','ט','י','ґ','כ','ר','ą','ץ','ط',
             'آ','ї','ס','Ĺ','ϛ','ή','ך','ם','ג','Γ','γ','φ',
             'ⅷ','Ⅰ','Á','Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ','Ⅵ','Ⅶ','Ⅷ','Ⅸ',
-            '◑','۰','۱','۲','۳','۴','۵','۶','۷','۸','۹','б', 
+            '◑','۰','۱','۲','۳','۴','۵','۶','۷','۸','۹','б',
             '※','ⁿ','ŀ','ĵ','İ','т','⅓','⅕','⅔','⅖','∾','∧',
             '∨','┌','┘','∃','Ǯ','п','‖',
             ]
@@ -1015,7 +1170,7 @@ def jsonOutputToFile(OUTPUT, HOSTNAME):
 
     # debug stuff below!!
     #print("The type of OUTPUT is: " + str(type(OUTPUT)) )
-    # json.dump(OUTPUT, f, indent=4, default=str) 
+    # json.dump(OUTPUT, f, indent=4, default=str)
     f.write(OUTPUT)
 
     #json.dumps(f, default=str)
@@ -1049,7 +1204,9 @@ def stringOutputToFile(*ARGS):
 
 def stringAppendToFile(*ARGS):
     MODE = 'a'
-    stringToFile(MODE, *ARGS)
+    OUTFILE = stringToFile(MODE, *ARGS)
+    return OUTFILE
+
 
 def stringToFile(MODE, *ARGS):
     """Takes a string object and outputs to file"""
@@ -1080,6 +1237,8 @@ def stringToFile(MODE, *ARGS):
 
         f.close()
 
+        return OUTFILE
+
     elif len(ARGS) == 4:
 
         SUBDIR = ARGS[3]
@@ -1096,19 +1255,19 @@ def stringToFile(MODE, *ARGS):
 
 
         OUTFILE = str("./logs/" + SUBDIR + "/" + HOSTNAME + "_" + EXT + ".txt" )
-        
+
         OUTFILE_OBJ_1 = open(OUTFILE , MODE)
-        
+
         # OUTFILE_OBJ_1.write(OUTPUT)
-        
+
         if isinstance(OUTPUT,str):
             OUTPUT = str.encode(OUTPUT)
             OUTPUT = OUTPUT.decode('utf-8', 'replace')
         else:
             OUTPUT = OUTPUT.decode('utf-8', 'replace')
-        
+
         linesAsList = OUTPUT.split( '\n' )
-        
+
         """
         for line in linesAsList:
             LINE = line + "\n"
@@ -1351,7 +1510,7 @@ def dfDisplay(PY_OBJ, METHOD, xpose=None, brief=None, filt_param=None):
             #breakpoint()
             # df = pd.json_normalize(i, max_level=2 )
             # for i in df.columns: df=df.explode(i)
-        
+
             try:
 
                 # now check the type of the element in that list
@@ -1381,7 +1540,7 @@ def dfDisplay(PY_OBJ, METHOD, xpose=None, brief=None, filt_param=None):
 
 
         df = pd.concat([item for item in PY_OBJ])
-        
+
         #breakpoint()
         # INFO = df.info()
 
@@ -1461,7 +1620,7 @@ def dfDisplay(PY_OBJ, METHOD, xpose=None, brief=None, filt_param=None):
 
             # #for item in CSV_OBJ:
 
-            # 
+            #
             # #PPRINT(CSV_OBJ)
 
 
@@ -1499,7 +1658,7 @@ def dfDisplay(PY_OBJ, METHOD, xpose=None, brief=None, filt_param=None):
             # df = pd.json_normalize(PY_DICT_OBJ, "functions", ["functions"])
 
             # for i in df.columns: df=df.explode(i)
-            
+
 
             #    (Pdb) p(df.columns)
             #    Index(['triggerid', 'expression', 'description', 'url', 'status', 'value',
