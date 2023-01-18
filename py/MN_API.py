@@ -102,7 +102,7 @@ def MAIL(MSG, SUB, TO, FILE=None):
 
 
 
-def SLEEP_AND_NETCAT(HOSTNAME, LOGNAME):
+def SLEEP_AND_NETCAT(HOSTNAME, LOGNAME, BASEDIR="./logs/"):
 
     while not re.match(
         r".*succeeded.*", os.popen(f"nc -vv -w5 {HOSTNAME} 22 2>&1 ").read().rstrip()
@@ -110,14 +110,50 @@ def SLEEP_AND_NETCAT(HOSTNAME, LOGNAME):
         TIME = os.popen("date").read()
         MSG = f"\n  SLEEP_AND_NETCAT() -> TCP port 22(ssh), NOT UP yet on: {HOSTNAME} at {TIME}"
         print(MSG)
-        stringAppendToFile(MSG, "main", LOGNAME)
+        stringAppendToFile(MSG, "main", LOGNAME, BASEDIR )
 
         print(f"SNOOZE 30: {HOSTNAME}")
         SNOOZE(30)
 
     return None, None
 
-def SLEEP_AND_NETCAT2(HOSTNAME, LOGNAME):
+def RUNNIT(COMMAND, LOGNAME, BASEDIR="./logs/" ):
+
+    def _RUNNIT(COMMAND):
+
+        RESULT = subprocess.run(COMMAND, input=None, stderr=subprocess.PIPE, stdout=subprocess.PIPE, timeout=10, encoding='utf-8', shell=True)
+
+        if RESULT:
+
+            if RESULT.returncode == 0:
+
+                TIME = os.popen("date").read()
+                MSG  = f"\n  {COMMAND=}: returned SUCCESSFUL {RESULT.returncode=} at {TIME}"
+                MSG += f"\n  {RESULT.stdout=} {RESULT.stderr=}"
+                print(MSG)
+                stringAppendToFile(MSG, "main", LOGNAME, BASEDIR )
+
+                return RESULT.stdout, RESULT.stderr
+
+            else:
+
+                TIME = os.popen("date").read()
+                MSG  = f"\n  {COMMAND=} returned {RESULT.returncode=} at {TIME}"
+                MSG += f"\n  {RESULT.stdout=} {RESULT.stderr=}"
+                print(MSG)
+                stringAppendToFile(MSG, "main", LOGNAME, BASEDIR )
+
+                return RESULT.stdout, RESULT.stderr
+
+
+    STDOUT, STDERR = _RUNNIT(COMMAND)
+
+    return STDOUT, STDERR
+
+
+
+
+def SLEEP_AND_NETCAT2(HOSTNAME, LOGNAME, BASEDIR="./logs/"):
 
     COMMAND = f"nc -vv -w5 {HOSTNAME} 22 "
 
@@ -133,7 +169,7 @@ def SLEEP_AND_NETCAT2(HOSTNAME, LOGNAME):
                 MSG = f"\n  SLEEP_AND_NETCAT2(): returned SUCCESSFUL {RESULT.returncode=} {HOSTNAME} at {TIME}"
                 MSG += f"\n  {RESULT.stdout=} {RESULT.stderr=}"
                 print(MSG)
-                stringAppendToFile(MSG, "main", LOGNAME)
+                stringAppendToFile(MSG, "main", LOGNAME, BASEDIR)
 
                 return RESULT.stdout, RESULT.stderr
 
@@ -143,7 +179,7 @@ def SLEEP_AND_NETCAT2(HOSTNAME, LOGNAME):
                 MSG = f"\n  SLEEP_AND_NETCAT2(): returned {RESULT.returncode=} {HOSTNAME} at {TIME}"
                 MSG += f"\n  {RESULT.stdout=} {RESULT.stderr=}"
                 print(MSG)
-                stringAppendToFile(MSG, "main", LOGNAME)
+                stringAppendToFile(MSG, "main", LOGNAME, BASEDIR)
 
                 return RESULT.stdout, RESULT.stderr
 
@@ -1045,12 +1081,12 @@ def HANDLE_IT(HOSTNAME, EXCEPT):
     print(MSG)
 
 
-def HANDLE_IT_LOG(HOSTNAME, EXCEPT, LOGNAME):
+def HANDLE_IT_LOG(HOSTNAME, EXCEPT, LOGNAME, BASEDIR="./logs/"):
 
     MSG = PRETTY_GEN_ERR_MSG(HOSTNAME,EXCEPT)
 
 
-    stringAppendToFile(MSG, "main", LOGNAME)
+    stringAppendToFile(MSG, "main", LOGNAME, BASEDIR )
 
 
 
@@ -1197,64 +1233,50 @@ def stringOutputToFile_bakMN(OUTPUT, HOSTNAME, EXT):
 
     f.close()
 
-def stringOutputToFile(*ARGS):
+def stringOutputToFile( OUTPUT, HOSTNAME, EXT, BASEDIR="./logs/" ):
     """Takes a string object and outputs to file"""
     MODE = 'w'
-    stringToFile(MODE, *ARGS)
+    OUTFILE = stringToFile( MODE, OUTPUT, HOSTNAME, EXT, BASEDIR )
+    return OUTFILE
 
-def stringAppendToFile(*ARGS):
+def stringAppendToFile( OUTPUT, HOSTNAME, EXT, BASEDIR="./logs/" ):
     MODE = 'a'
-    OUTFILE = stringToFile(MODE, *ARGS)
+    OUTFILE = stringToFile(MODE, OUTPUT, HOSTNAME, EXT, BASEDIR )
     return OUTFILE
 
 
-def stringToFile(MODE, *ARGS):
+def stringToFile(MODE, OUTPUT, HOSTNAME, EXT, BASEDIR, SUBDIR=None ):
     """Takes a string object and outputs to file"""
 
     # X is either one of 'w' or 'a' for write or append
 
     # args: OUTPUT, HOSTNAME, EXT, SUBDIR=None
     #breakpoint()
-    OUTPUT = ARGS[0]
-    HOSTNAME = ARGS[1]
-    EXT = ARGS[2]
+    # OUTPUT = ARGS[0]
+    # HOSTNAME = ARGS[1]
+    # EXT = ARGS[2]
 
-    if len(ARGS) == 3:
 
-        freshDir("./logs/" )
-
-        OUTFILE = str("./logs/" + HOSTNAME + "_" + EXT + ".txt")
-
-        f = open(OUTFILE, MODE)
-
-        OUTPUT = str(OUTPUT)
-
-        linesAsList = OUTPUT.split("\n")
-
-        for LINE in linesAsList:
-            LINE = LINE.rstrip()
-            f.write(LINE + "\n")
-
-        f.close()
-
-        return OUTFILE
-
-    elif len(ARGS) == 4:
+    if BASEDIR and SUBDIR:
 
         SUBDIR = ARGS[3]
 
-        freshDir("./logs/" )
+        #freshDir("./logs/" )
+        freshDir( BASEDIR )
 
-        LOGS = "./logs/" + SUBDIR
-
-        freshDir(LOGS)
-
-        LOGS = "./logs/DEBUG/"
+        #LOGS = "./logs/" + SUBDIR
+        LOGS = BASEDIR + SUBDIR
 
         freshDir(LOGS)
 
+        #LOGS = "./logs/DEBUG/"
+        LOGS = BASEDIR + "DEBUG/"
 
-        OUTFILE = str("./logs/" + SUBDIR + "/" + HOSTNAME + "_" + EXT + ".txt" )
+        freshDir(LOGS)
+
+
+        #OUTFILE = str("./logs/" + SUBDIR + "/" + HOSTNAME + "_" + EXT + ".txt" )
+        OUTFILE = str( BASEDIR + SUBDIR + "/" + HOSTNAME + "_" + EXT + ".txt" )
 
         OUTFILE_OBJ_1 = open(OUTFILE , MODE)
 
@@ -1280,6 +1302,27 @@ def stringToFile(MODE, *ARGS):
         OUTFILE_OBJ_1.close()
 
         #OUTFILE_OBJ_1.write(OUTPUT)
+
+    elif BASEDIR:
+
+        #freshDir("./logs/" )
+        freshDir( BASEDIR )
+
+        OUTFILE = str( BASEDIR + HOSTNAME + "_" + EXT + ".txt")
+
+        f = open(OUTFILE, MODE)
+
+        OUTPUT = str(OUTPUT)
+
+        linesAsList = OUTPUT.split("\n")
+
+        for LINE in linesAsList:
+            LINE = LINE.rstrip()
+            f.write(LINE + "\n")
+
+        f.close()
+
+        return OUTFILE
 
 
 def stringAppendToFile_bakMN(OUTPUT, HOSTNAME, EXT, SUBDIR=None):
