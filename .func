@@ -6,6 +6,7 @@ function sshk() {
     echo ""
 	echo "The number of positional parameter : $#"
     echo "All parameters or arguments passed to the function: '$@'"
+
     echo ""
 
 	if [ $# != 1 ]; then
@@ -57,6 +58,26 @@ function sshl() {
                 scp ~/m $x: ;
 		ssh $x | tee -a ./logs/${x}_interact.txt ;
 	fi
+}
+
+function hi() {
+    # set -xT
+    x=$1
+    echo ""
+    echo "<dbug func enabled>"
+    echo ""
+    echo "The number of positional parameter : $#"
+    echo "All parameters or arguments passed to the function: '$@'"
+    echo ""
+
+    if [[ $# == 0 ]]; then
+        history | tail -n 100
+    elif [[ $# == 1 ]]; then
+    	history | grep $x
+    else
+    	echo -e "Optional one arg with is a pattern to grep through history with"
+    fi
+    # set +xT
 }
 
 function createlogsdir() {
