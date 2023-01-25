@@ -19,6 +19,8 @@ function sshk() {
 		sshk -l mnicholas $x | tee -a ./logs/${x}_interact.txt ;
 	fi
 }
+export -f sshk
+
 function sshkl() {
     echo ""
     echo "<dbug func enabled>"
@@ -39,6 +41,9 @@ function sshkl() {
 		sshk $x | tee -a ./logs/${x}_interact.txt ;
 	fi
 }
+
+export -f sshkl
+
 function sshl() {
     echo ""
     echo "<dbug func enabled>"
@@ -60,6 +65,9 @@ function sshl() {
 	fi
 }
 
+
+export -f sshl
+
 function hi() {
     # set -xT
     x=$1
@@ -80,6 +88,9 @@ function hi() {
     # set +xT
 }
 
+export -f hi
+
+
 function createlogsdir() {
 	if [ -d ./logs ];
 	then
@@ -88,6 +99,9 @@ function createlogsdir() {
 		echo "Creating ./logs dir ... " && mkdir logs;
 	fi;
 }
+
+export -f createlogsdir
+
 
 function stamp() {
 	if [ -d ./logs ];
@@ -103,6 +117,9 @@ function stamp() {
 	fi;
 }
 
+export -f stamp
+
+
 function dpkgq() {  
     dpkg-query --list |                  \
     awk '$1 == "ii"                      \
@@ -113,3 +130,6 @@ function dpkgq() {
       print F                            \
     }'
 }
+
+export -f dpkgq
+
