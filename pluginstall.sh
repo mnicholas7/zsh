@@ -121,11 +121,18 @@ then
   WINDOZE_USER=$( /mnt/c/windows/system32/cmd.exe /c "echo %USERNAME%" | perl -wpl -e "s/\s+//g;")
    
   MSHOME=/mnt/c/Users/${WINDOZE_USER}
+  NVIM_INIT=/mnt/c/Users/${WINDOZE_USER}/AppData/Local/nvim
 
   if [[ -d ${MSHOME} ]]
   then
     cp .vimrc ${MSHOME}/_vimrc
     cp profile.ps1 ${MSHOME}/Documents/WindowsPowerShell/
+  fi
+
+  # nvim init file location on windoze
+  if [[ -d ${NVIM_INIT} ]]
+  then
+    cp init.vim ${NVIM_INIT}/
   fi
 fi
 
