@@ -52,15 +52,22 @@ function sshl() {
     echo "All parameters or arguments passed to the function: '$@'"
     echo ""
 
-	if [ $# != 1 ]; then
-		echo -e "\nOnly one ARG please!  Call this script with ${0} <IP/hostname>\n"
-	else
+	if [[ $# == 2 ]]; then
+                x=$1
+                y=$2
+		ssh $x $y
+	elif [[ $# == 3 ]]; then
+                y=$2
+                z=$3
+		ssh $x $y $z
+	elif [[ $# == 1 ]]; then
 		createlogsdir;
 		y=`date`
 		x=$1 ;
 		echo -e "\nNow connecting to host: ${x} at ${y}\n\n" >> ./logs/${x}_interact.txt ;
                 #ssh $x echo -e "set -o vi\nalias t=\"ls -lt\"\n" > mn;
                 scp ~/m $x: ;
+                scp ~/.vimrc $x: ;
 		ssh $x | tee -a ./logs/${x}_interact.txt ;
 	fi
 }
