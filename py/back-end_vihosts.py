@@ -14,7 +14,7 @@ def main():
 
     USER = os.popen('whoami').read().rstrip()
 
-    TMP_OUTPUT_FILE = str( f"/home/${USER}/hosts/hosts_{DATESTAMP}" )
+    TMP_OUTPUT_FILE = str( f"/home/{USER}/hosts/hosts_{DATESTAMP}" )
 
     TMP_OUTPUT_FILE_OBJ_1 = open(TMP_OUTPUT_FILE, "w")
 
