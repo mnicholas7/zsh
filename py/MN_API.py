@@ -68,24 +68,12 @@ def EXAR(STUFF):
 def RLOAD(X):
     importlib.reload(X)
 
-def MAIL(MSG, SUB, TO, FILE=None):
-
-    MSG = f"""
-<html>
-<head>
-</head>
-<body>
-<pre style="white-space: pre">
-{MSG}
-</pre>
-</body>
-"""
+def MAIL(MSG_FILE, SUB, TO, FILE=None):
 
     if FILE:
-      COMMAND = f"/usr/bin/mail -a 'Content-Type: text/html; charset=UTF-8' -A {FILE} -s '{SUB}' {TO} << EOF\n{MSG}\nEOF"
+      COMMAND = f"/usr/bin/mail --attach='{FILE}' --content-type=text/html --subject='{SUB}' '{TO}' < {MSG_FILE} "
     else:
-      COMMAND = f"/usr/bin/mail -a 'Content-Type: text/html; charset=UTF-8' -s '{SUB}' {TO} << EOF\n{MSG}\nEOF"
-
+      COMMAND = f"/usr/bin/mail                   --content-type=text/html --subject='{SUB}' '{TO}' < {MSG_FILE} "
   
     try:
         RESULT = subprocess.run(COMMAND, input=None, stderr=subprocess.PIPE, stdout=subprocess.PIPE, timeout=10, encoding='utf-8', shell=True)
@@ -1149,14 +1137,14 @@ def genDiffs(SITE, BEFORE_DIR, AFTER_DIR):
         #os.mkdir('./logs/')
         pass
 
-def bytesOutputToFile(OUTPUT, HOSTNAME, EXT):
+def bytesOutputToFile(OUTPUT, HOSTNAME, FNC):
 
     if os.path.exists('./logs/') and os.path.isdir('./logs/'):
         pass
     else:
         os.mkdir('./logs/')
 
-    OUTFILE = str("./logs/" + HOSTNAME + "_" + EXT + ".txt")
+    OUTFILE = str("./logs/" + HOSTNAME + "_" + FNC + ".txt")
 
     OUTFILE_OBJ_1 = open(OUTFILE, "wb")
 
@@ -1214,12 +1202,12 @@ def jsonOutputToFile(OUTPUT, HOSTNAME):
 
     f.close()
 
-def stringOutputToFile_bakMN(OUTPUT, HOSTNAME, EXT):
+def stringOutputToFile_bakMN(OUTPUT, HOSTNAME, FNC):
     """Takes a string object and outputs to file"""
 
     freshDir("./logs/" )
 
-    OUTFILE = str("./logs/" + HOSTNAME + "_" + EXT + ".txt")
+    OUTFILE = str("./logs/" + HOSTNAME + "_" + FNC + ".txt")
 
     f = open(OUTFILE, "w")
 
@@ -1233,28 +1221,43 @@ def stringOutputToFile_bakMN(OUTPUT, HOSTNAME, EXT):
 
     f.close()
 
-def stringOutputToFile( OUTPUT, HOSTNAME, EXT, BASEDIR="./logs/" ):
+def stringOutputToFile( OUTPUT, HOSTNAME, FNC, BASEDIR="./logs/" , EXT=".txt" ):
     """Takes a string object and outputs to file"""
     MODE = 'w'
-    OUTFILE = stringToFile( MODE, OUTPUT, HOSTNAME, EXT, BASEDIR )
+    OUTFILE = stringToFile( MODE, OUTPUT, HOSTNAME, FNC, BASEDIR=BASEDIR , EXT=EXT )
     return OUTFILE
 
-def stringAppendToFile( OUTPUT, HOSTNAME, EXT, BASEDIR="./logs/" ):
+def stringAppendToFile( OUTPUT, HOSTNAME, FNC, BASEDIR="./logs/" , EXT=".txt" ):
     MODE = 'a'
-    OUTFILE = stringToFile(MODE, OUTPUT, HOSTNAME, EXT, BASEDIR )
+    OUTFILE = stringToFile(MODE, OUTPUT, HOSTNAME, FNC, BASEDIR=BASEDIR , EXT=EXT )
     return OUTFILE
 
+def stringAppendToFileHTML( OUTPUT, HOSTNAME, FNC, BASEDIR="./logs/" , EXT=".html" ):
 
-def stringToFile(MODE, OUTPUT, HOSTNAME, EXT, BASEDIR, SUBDIR=None ):
+    OUTPUT = f"""
+<html>
+<head>
+</head>
+<body>
+<pre style="white-space: pre">
+{OUTPUT}
+</pre>
+</body>
+"""
+    MODE = 'a'
+    OUTFILE = stringToFile(MODE, OUTPUT, HOSTNAME, FNC, BASEDIR=BASEDIR , EXT=EXT )
+    return OUTFILE
+
+def stringToFile(MODE, OUTPUT, HOSTNAME, FNC, BASEDIR=None, SUBDIR=None , EXT=None ):
     """Takes a string object and outputs to file"""
 
     # X is either one of 'w' or 'a' for write or append
 
-    # args: OUTPUT, HOSTNAME, EXT, SUBDIR=None
+    # args: OUTPUT, HOSTNAME, FNC, SUBDIR=None
     #breakpoint()
     # OUTPUT = ARGS[0]
     # HOSTNAME = ARGS[1]
-    # EXT = ARGS[2]
+    # FNC = ARGS[2]
 
 
     if BASEDIR and SUBDIR:
@@ -1275,8 +1278,8 @@ def stringToFile(MODE, OUTPUT, HOSTNAME, EXT, BASEDIR, SUBDIR=None ):
         freshDir(LOGS)
 
 
-        #OUTFILE = str("./logs/" + SUBDIR + "/" + HOSTNAME + "_" + EXT + ".txt" )
-        OUTFILE = str( BASEDIR + SUBDIR + "/" + HOSTNAME + "_" + EXT + ".txt" )
+        #OUTFILE = str("./logs/" + SUBDIR + "/" + HOSTNAME + "_" + FNC + ".txt" )
+        OUTFILE = str( BASEDIR + SUBDIR + "/" + HOSTNAME + "_" + FNC + EXT )
 
         OUTFILE_OBJ_1 = open(OUTFILE , MODE)
 
@@ -1308,7 +1311,7 @@ def stringToFile(MODE, OUTPUT, HOSTNAME, EXT, BASEDIR, SUBDIR=None ):
         #freshDir("./logs/" )
         freshDir( BASEDIR )
 
-        OUTFILE = str( BASEDIR + HOSTNAME + "_" + EXT + ".txt")
+        OUTFILE = str( BASEDIR + HOSTNAME + "_" + FNC + EXT )
 
         f = open(OUTFILE, MODE)
 
@@ -1325,12 +1328,12 @@ def stringToFile(MODE, OUTPUT, HOSTNAME, EXT, BASEDIR, SUBDIR=None ):
         return OUTFILE
 
 
-def stringAppendToFile_bakMN(OUTPUT, HOSTNAME, EXT, SUBDIR=None):
+def stringAppendToFile_bakMN(OUTPUT, HOSTNAME, FNC, SUBDIR=None):
     """Takes a string object and outputs to file"""
 
     freshDir("./logs/" )
 
-    OUTFILE = str("./logs/" + HOSTNAME + "_" + EXT + ".txt")
+    OUTFILE = str("./logs/" + HOSTNAME + "_" + FNC + EXT )
 
     f = open(OUTFILE, "a")
 
@@ -1346,7 +1349,7 @@ def stringAppendToFile_bakMN(OUTPUT, HOSTNAME, EXT, SUBDIR=None):
 
 
 
-def breakUpJson(PY_OBJ, EXT, xpose=None):
+def breakUpJson(PY_OBJ, FNC, xpose=None):
     """Break up arbitrary nested json objects into smaller data frames and print to screen using dfDisplay()"""
     # breakpoint()
 
@@ -1382,7 +1385,7 @@ def breakUpJson(PY_OBJ, EXT, xpose=None):
 
                         print(f"\n=> {x}:")
                         NEW_OBJ_2 = copy.deepcopy(NEW_OBJ[x])
-                        dfDisplay(NEW_OBJ_2, EXT + "_" + x, xpose)
+                        dfDisplay(NEW_OBJ_2, FNC + "_" + x, xpose)
 
                         NEW_OBJ[x] = None
 
@@ -1394,7 +1397,7 @@ def breakUpJson(PY_OBJ, EXT, xpose=None):
 
                         print(f"\n=> {x}:")
                         NEW_OBJ_2 = copy.deepcopy(NEW_OBJ[x])
-                        dfDisplay(NEW_OBJ_2, EXT + "_" + x, xpose)
+                        dfDisplay(NEW_OBJ_2, FNC + "_" + x, xpose)
 
                         NEW_OBJ[x] = None
 
@@ -1408,7 +1411,7 @@ def breakUpJson(PY_OBJ, EXT, xpose=None):
 
                         print(f"\n=> {counter}:")
                         NEW_OBJ_2 = copy.deepcopy(NEW_OBJ[counter])
-                        dfDisplay(NEW_OBJ_2, EXT + "_" + counter, xpose)
+                        dfDisplay(NEW_OBJ_2, FNC + "_" + counter, xpose)
 
                         NEW_OBJ[counter] = None
 
@@ -1420,7 +1423,7 @@ def breakUpJson(PY_OBJ, EXT, xpose=None):
 
                         print(f"\n=> {counter}:")
                         NEW_OBJ_2 = copy.deepcopy(NEW_OBJ[counter])
-                        dfDisplay(NEW_OBJ_2, EXT + "_" + counter, xpose)
+                        dfDisplay(NEW_OBJ_2, FNC + "_" + counter, xpose)
 
                         NEW_OBJ[counter] = None
 
@@ -1467,7 +1470,7 @@ def breakUpJson(PY_OBJ, EXT, xpose=None):
 
                         print(f"\n=> {x}:")
                         NEW_OBJ_2 = copy.deepcopy(NEW_OBJ[x])
-                        dfDisplay(NEW_OBJ_2, EXT + "_" + x, xpose)
+                        dfDisplay(NEW_OBJ_2, FNC + "_" + x, xpose)
 
                         NEW_OBJ[x] = None
 
@@ -1479,7 +1482,7 @@ def breakUpJson(PY_OBJ, EXT, xpose=None):
 
                         print(f"\n=> {x}:")
                         NEW_OBJ_2 = copy.deepcopy(NEW_OBJ[x])
-                        dfDisplay(NEW_OBJ_2, EXT + "_" + x, xpose)
+                        dfDisplay(NEW_OBJ_2, FNC + "_" + x, xpose)
 
                         NEW_OBJ[x] = None
 
@@ -1493,7 +1496,7 @@ def breakUpJson(PY_OBJ, EXT, xpose=None):
 
                         print(f"\n=> {counter}:")
                         NEW_OBJ_2 = copy.deepcopy(NEW_OBJ[counter])
-                        dfDisplay(NEW_OBJ_2, EXT + "_" + counter, xpose)
+                        dfDisplay(NEW_OBJ_2, FNC + "_" + counter, xpose)
 
                         NEW_OBJ[counter] = None
 
@@ -1505,7 +1508,7 @@ def breakUpJson(PY_OBJ, EXT, xpose=None):
 
                         print(f"\n=> {counter}:")
                         NEW_OBJ_2 = copy.deepcopy(NEW_OBJ[counter])
-                        dfDisplay(NEW_OBJ_2, EXT + "_" + counter, xpose)
+                        dfDisplay(NEW_OBJ_2, FNC + "_" + counter, xpose)
 
                         NEW_OBJ[counter] = None
 
@@ -1525,7 +1528,7 @@ def breakUpJson(PY_OBJ, EXT, xpose=None):
                     REMAINDER_DICT[x] = []
                     REMAINDER_DICT[x].append(NEW_OBJ[x])
 
-            dfDisplay(REMAINDER_DICT, EXT, xpose)
+            dfDisplay(REMAINDER_DICT, FNC, xpose)
 
 
 def dfDisplay(PY_OBJ, METHOD, xpose=None, brief=None, filt_param=None):
