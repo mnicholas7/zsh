@@ -1174,6 +1174,37 @@ def printJSON(NATIVE_OBJ):
     PRINT_FMT_MSG(JSON)
 
 
+def jsonInputToCSVFile(INPUT_FILE):
+    """Takes a json input file and outputs to csv file"""
+
+    #freshDir("./logs/" )
+
+    OUTFILE = str( INPUT_FILE + ".csv")
+
+    FI  = open(INPUT_FILE, "r")
+    #FO = open(OUTFILE, "r")
+
+    INPUT_JSON = json.loads(FI.read())
+
+    #breakpoint()
+
+    dfDisplay( INPUT_JSON , OUTFILE )
+
+    # OUTPUT must be json.load'd already ( aka PARSED )
+    # json.dump(OUTPUT, f, indent=4, default=str)
+
+    # trying to get pretty json output
+    # json.dumps(OUTPUT, f, indent=4, default=str)
+
+    # debug stuff below!!
+    #print("The type of OUTPUT is: " + str(type(OUTPUT)) )
+    # json.dump(OUTPUT, f, indent=4, default=str)
+    #FO.write(OUTPUT)
+
+    #json.dumps(f, default=str)
+    #json.dumps(OUTPUT, default=str)
+
+    FI.close()
 
 def jsonOutputToFile(OUTPUT, HOSTNAME):
     """Takes a json object and outputs to file"""
