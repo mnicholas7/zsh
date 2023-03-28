@@ -16,7 +16,7 @@ function sshk() {
 		y=`date`
 		x=$1 ;
 		echo "Now connecting to host: {x} at {y}\n" >> ./logs/${x}_interact.txt ;
-		sshk -l mnicholas $x | tee -a ./logs/${x}_interact.txt ;
+		sshk $x | tee -a ./logs/${x}_interact.txt ;
 	fi
 }
 export -f sshk
@@ -38,7 +38,10 @@ function sshkl() {
 		echo -e "\nNow connecting to host: ${x} at ${y}\n\n" >> ./logs/${x}_interact.txt ;
                 #ssh $x echo -e "set -o vi\nalias t=\"ls -lt\"\n" > mn;
                 scp ~/m $x: ;
-		sshk $x | tee -a ./logs/${x}_interact.txt ;
+		# sshk $x | tee -a ./logs/${x}_interact.txt ; 
+		sshk -t $x 'PROMPT_COMMAND="source ~/m
+                                           unset PROMPT_COMMAND
+                                           " exec bash ' | tee -a ./logs/${x}_interact.txt ;
 	fi
 }
 
@@ -68,7 +71,10 @@ function sshl() {
                 #ssh $x echo -e "set -o vi\nalias t=\"ls -lt\"\n" > mn;
                 scp ~/m $x: ;
                 scp ~/.vimrc $x: ;
-		ssh $x | tee -a ./logs/${x}_interact.txt ;
+		# ssh $x | tee -a ./logs/${x}_interact.txt ;
+		ssh -t $x 'PROMPT_COMMAND="source ~/m
+                                           unset PROMPT_COMMAND
+                                           " exec bash ' | tee -a ./logs/${x}_interact.txt ;
 	fi
 }
 
