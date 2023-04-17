@@ -155,7 +155,7 @@ return require('packer').startup(function(use)
 
 vim.opt.signcolumn = 'yes'
 vim.opt.termguicolors = true
-pcall(vim.cmd, 'colorscheme onedark')
+pcall(vim.cmd, 'colorscheme blue')
 
 require("transparent").setup({
   enable = true, -- boolean: enable transparent
