@@ -1,5 +1,12 @@
 -- local set = vim.opt
+--
+-- This is for nvim-tree - lua based nvim file browser
+-- disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
+-- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
 
 
 vim.opt.clipboard = 'unnamedplus'
@@ -128,6 +135,16 @@ return require('packer').startup(function(use)
       {'L3MON4D3/LuaSnip'},
       {'rafamadriz/friendly-snippets'},
     }
+  }
+
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons', -- optional
+    },
+    config = function()
+      require("nvim-tree").setup {}
+    end
   }
 
   -- Automatically set up your configuration after cloning packer.nvim
