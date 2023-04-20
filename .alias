@@ -4,6 +4,7 @@ alias ff="ls -taF"
 alias t="lsd -lta"
 alias f="lsd -ta"
 alias e="exit"
+alias tf="terraform"
 # alias tmux="tmux -2"
 alias c='rm -rf ./logs/* '
 alias sshk="ssh -o KexAlgorithms=diffie-hellman-group1-sha1 -o Ciphers=aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc "
