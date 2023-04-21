@@ -10,7 +10,7 @@ vim.opt.termguicolors = true
 
 
 vim.opt.clipboard = 'unnamedplus'
-vim.opt.mouse = '' 
+vim.opt.mouse = 'n' 
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.ruler = true
