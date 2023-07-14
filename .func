@@ -38,6 +38,7 @@ function sshkl() {
 		echo -e "\nNow connecting to host: ${x} at ${y}\n\n" >> ./logs/${x}_interact.txt ;
                 #ssh $x echo -e "set -o vi\nalias t=\"ls -lt\"\n" > mn;
                 scp ~/m $x: ;
+                export TERM=xterm ;
 		# sshk $x | tee -a ./logs/${x}_interact.txt ; 
 		sshk -t $x 'PROMPT_COMMAND="source ~/m
                                            unset PROMPT_COMMAND
@@ -46,6 +47,34 @@ function sshkl() {
 }
 
 export -f sshkl
+
+function sshj() {
+    echo ""
+    echo "<dbug func enabled>"
+    echo ""
+	echo "The number of positional parameter : $#"
+    echo "All parameters or arguments passed to the function: '$@'"
+    echo ""
+
+	if [[ $# == 2 ]]; then
+                x=$1
+                y=$2
+		ssh $x $y
+	elif [[ $# == 3 ]]; then
+                y=$2
+                z=$3
+		ssh $x $y $z
+	elif [[ $# == 1 ]]; then
+		createlogsdir;
+		y=`date`
+		x=$1 ;
+		echo -e "\nNow connecting to host: ${x} at ${y}\n\n" >> ./logs/${x}_interact.txt ;
+		ssh $x | tee -a ./logs/${x}_interact.txt ;
+	fi
+}
+
+
+export -f sshj
 
 function sshl() {
     echo ""
@@ -71,6 +100,7 @@ function sshl() {
                 #ssh $x echo -e "set -o vi\nalias t=\"ls -lt\"\n" > mn;
                 scp ~/m $x: ;
                 scp ~/.vimrc $x: ;
+                export TERM=xterm;
 		# ssh $x | tee -a ./logs/${x}_interact.txt ;
 		ssh -t $x 'PROMPT_COMMAND="source ~/m
                                            unset PROMPT_COMMAND
