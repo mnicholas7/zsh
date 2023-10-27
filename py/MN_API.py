@@ -1825,3 +1825,277 @@ def dfDisplay(PY_OBJ, METHOD, xpose=None, brief=None, filt_param=None):
         except ValueError as e:
             print(f"\nCouldn't create DataFrame from response, sorry, I tried.. \n")
 
+
+def dfMergeDisplay(PY_OBJ_LEFT, PY_OBJ_RIGHT, METHOD, xpose=None, brief=None, filt_param=None):
+    """Take arbitrary Python object and convert to Pandas DataFrame, wipe secret column text, and write that DataFrame to disk and print it to screen"""
+    """
+    print(
+        f"\ndfDisplay func was called with METHOD: {METHOD} and filt_param: {filt_param} , ( from inside MN_API module )\n"
+    )
+    """
+    OUTFILE = str("./logs/dfDisplay_MN_API_" + METHOD + ".txt")
+    CSVFILE = str("./logs/dfDisplay_MN_API_" + METHOD + ".csv")
+    f = open(OUTFILE, "w")
+    INFO = ""
+    if ( 
+           ( type(PY_OBJ_LEFT)  is list and len(PY_OBJ_LEFT)  > 0 ) 
+           and 
+           ( type(PY_OBJ_RIGHT) is list and len(PY_OBJ_RIGHT) > 0 )
+
+           ):
+
+        for counter,item in enumerate(PY_OBJ_LEFT):
+            try:
+                if type(item) is dict:
+                    PY_OBJ_LEFT[counter] = pd.json_normalize(item, max_level=2 )
+            except Exception as e:
+                print(e)
+
+        for counter,item in enumerate(PY_OBJ_RIGHT):
+            try:
+                if type(item) is dict:
+                    PY_OBJ_RIGHT[counter] = pd.json_normalize(item, max_level=2 )
+            except Exception as e:
+                print(e)
+
+        DF_LEFT  = pd.concat([item for item in PY_OBJ_LEFT])
+        DF_RIGHT = pd.concat([item for item in PY_OBJ_RIGHT])
+
+        if xpose:
+            DF_LEFT  = DF_LEFT.transpose()
+            DF_RIGHT = DF_RIGHT.transpose()
+        else:
+            pass
+
+        # merge here
+        OUTER_MERGED = pd.merge(
+                #DF_LEFT, DF_RIGHT, how="outer", on=["id","subnetId"]
+                DF_LEFT, DF_RIGHT, how="outer"
+                )
+
+        TO_DROP = [x for x in OUTER_MERGED if x.endswith('_y')]
+        OUTER_MERGED.drop(TO_DROP, axis=1, inplace=True)
+
+        try:
+            if OUTER_MERGED[filt_param] is not None:
+                print(f"\nFound! filt_param: {filt_param} inside DF_LEFT ..\n")
+                RESULT_LIST = list(OUTER_MERGED[filt_param])
+                print(f"\nReturning RESULT_LIST with {len(RESULT_LIST)} items!\n")
+                f.write("\n\n")
+                f.write(str(OUTER_MERGED))
+                f.write("\n\n")
+                f.write(str(INFO))
+                f.write("\n\n")
+                return RESULT_LIST
+        except:
+            """
+            print(
+                f"\nfilt_param: {filt_param} , might be ok! \nwarning: OUTER_MERGED\[filt_param\] was None\n"
+            )
+            """
+            f.write("\n\n")
+            f.write(str(OUTER_MERGED))
+            f.write("\n\n")
+            CSV_STR = OUTER_MERGED.to_csv(sep=',', index=False)
+            CSV_LIST = CSV_STR.split('\n')
+            CSV_OBJ = csv.reader(CSV_LIST)
+            OUT_L = []
+            ROW_OBJ = {}
+            for i in CSV_OBJ:
+                OUT_L.append(i)
+            MSG = tabulate.tabulate(OUT_L)
+            MSG = PRETTY_BOX(MSG,2,1)
+            print(MSG)
+
+
+    elif (
+            (type(PY_OBJ_LEFT)  is dict and len(PY_OBJ_LEFT)  > 0) 
+            and
+            (type(PY_OBJ_RIGHT) is dict and len(PY_OBJ_RIGHT) > 0)
+            ):
+
+        try:
+            DF_LEFT  = pd.json_normalize(PY_OBJ_LEFT, max_level=2 )
+            DF_RIGHT = pd.json_normalize(PY_OBJ_RIGHT, max_level=2 )
+
+            if xpose:
+                DF_LEFT  = DF_LEFT.transpose()
+                DF_RIGHT = DF_RIGHT.transpose()
+            else:
+                pass
+
+            try:
+                if DF_LEFT["secret"] is not None:
+                    DF_LEFT["secret"] = "xxx"
+            except KeyError:
+                pass
+            try:
+                if DF_RIGHT["secret"] is not None:
+                    DF_RIGHT["secret"] = "xxx"
+            except KeyError:
+                pass
+
+            # merge here
+            OUTER_MERGED = pd.merge(
+                    #DF_LEFT, DF_RIGHT, how="outer", on=["id","subnetId"]
+                    DF_LEFT, DF_RIGHT, how="outer"
+                    )
+
+            TO_DROP = [x for x in OUTER_MERGED if x.endswith('_y')]
+            OUTER_MERGED.drop(TO_DROP, axis=1, inplace=True)
+
+            try:
+                if OUTER_MERGED[filt_param] is not None:
+                    print(f"\nFound! filt_param: {filt_param} inside DF_LEFT ..\n")
+                    RESULT_LIST = list(OUTER_MERGED[filt_param])
+                    print(f"\nReturning RESULT_LIST with {len(RESULT_LIST)} items!\n")
+                    f.write("\n\n")
+                    f.write(str(OUTER_MERGED))
+                    f.write("\n\n")
+                    f.write(str(INFO))
+                    f.write("\n\n")
+                    return RESULT_LIST
+            except:
+                """
+                print(
+                    f"\nfilt_param: {filt_param} , might be ok! \nwarning: OUTER_MERGED\[filt_param\] was None\n"
+                )
+                """
+                f.write("\n\n")
+                f.write(str(OUTER_MERGED))
+                f.write("\n\n")
+                f.write(str(INFO))
+                f.write("\n\n")
+                print(f"\n{DF_LEFT}\n{INFO}\n")
+                print(f"\nWriting DF_LEFT to csv: {CSVFILE}\n\n")
+                DF_LEFT.to_csv(CSVFILE)
+
+        except ValueError as e:
+            print(f"\nCouldn't create DataFrame from response, sorry, I tried.. \n")
+
+    # assume only one came back nonzero at this point, no need to merge just display
+    elif ( 
+           ( type(PY_OBJ_LEFT)  is list and len(PY_OBJ_LEFT)  > 0 ) 
+           or 
+           ( type(PY_OBJ_RIGHT) is list and len(PY_OBJ_RIGHT) > 0 )
+
+           ):
+
+        RESULT = PY_OBJ_LEFT if len(PY_OBJ_LEFT) > 0 else PY_OBJ_RIGHT
+
+        for counter,item in enumerate(RESULT):
+            try:
+                if type(item) is dict:
+                    RESULT[counter] = pd.json_normalize(item, max_level=2 )
+            except Exception as e:
+                print(e)
+
+        DF_RESULT  = pd.concat([item for item in RESULT])
+        
+        if xpose:
+            DF_RESULT  = DF_RESULT.transpose()
+        else:
+            pass
+
+
+
+        # merge here
+        # OUTER_MERGED = pd.merge(
+        #         #DF_LEFT, DF_RIGHT, how="outer", on=["id","subnetId"]
+        #         DF_LEFT, DF_RIGHT, how="outer"
+        #         )
+
+        # TO_DROP = [x for x in OUTER_MERGED if x.endswith('_y')]
+        # OUTER_MERGED.drop(TO_DROP, axis=1, inplace=True)
+
+        try:
+            if RESULT[filt_param] is not None:
+                print(f"\nFound! filt_param: {filt_param} inside RESULT ..\n")
+                RESULT_LIST = list(RESULT[filt_param])
+                print(f"\nReturning RESULT_LIST with {len(RESULT_LIST)} items!\n")
+                f.write("\n\n")
+                f.write(str(RESULT))
+                f.write("\n\n")
+                f.write(str(INFO))
+                f.write("\n\n")
+                return RESULT_LIST
+        except:
+            """
+            print(
+                f"\nfilt_param: {filt_param} , might be ok! \nwarning: OUTER_MERGED\[filt_param\] was None\n"
+            )
+            """
+            f.write("\n\n")
+            f.write(str(RESULT))
+            f.write("\n\n")
+            CSV_STR = DF_RESULT.to_csv(sep=',', index=False)
+            CSV_LIST = CSV_STR.split('\n')
+            CSV_OBJ = csv.reader(CSV_LIST)
+            OUT_L = []
+            ROW_OBJ = {}
+            for i in CSV_OBJ:
+                OUT_L.append(i)
+            MSG = tabulate.tabulate(OUT_L)
+            MSG = PRETTY_BOX(MSG,2,1)
+            print(MSG)
+
+
+    elif (
+            (type(PY_OBJ_LEFT)  is dict and len(PY_OBJ_LEFT)  > 0) 
+            or
+            (type(PY_OBJ_RIGHT) is dict and len(PY_OBJ_RIGHT) > 0)
+            ):
+
+        RESULT = PY_OBJ_LEFT if len(PY_OBJ_LEFT) > 0 else PY_OBJ_RIGHT
+
+        try:
+            DF_RESULT  = pd.json_normalize(RESULT, max_level=2 )
+
+            if xpose:
+                DF_RESULT  = DF_RESULT.transpose()
+            else:
+                pass
+
+            try:
+                if DF_RESULT["secret"] is not None:
+                    DF_RESULT["secret"] = "xxx"
+            except KeyError:
+                pass
+
+            # merge here
+            # OUTER_MERGED = pd.merge(
+            #         #DF_LEFT, DF_RIGHT, how="outer", on=["id","subnetId"]
+            #         DF_LEFT, DF_RIGHT, how="outer"
+            #         )
+
+            # TO_DROP = [x for x in OUTER_MERGED if x.endswith('_y')]
+            # OUTER_MERGED.drop(TO_DROP, axis=1, inplace=True)
+
+            try:
+                if RESULT[filt_param] is not None:
+                    print(f"\nFound! filt_param: {filt_param} inside DF_LEFT ..\n")
+                    RESULT_LIST = list(RESULT[filt_param])
+                    print(f"\nReturning RESULT_LIST with {len(RESULT_LIST)} items!\n")
+                    f.write("\n\n")
+                    f.write(str(RESULT))
+                    f.write("\n\n")
+                    f.write(str(INFO))
+                    f.write("\n\n")
+                    return RESULT_LIST
+            except:
+                """
+                print(
+                    f"\nfilt_param: {filt_param} , might be ok! \nwarning: OUTER_MERGED\[filt_param\] was None\n"
+                )
+                """
+                f.write("\n\n")
+                f.write(str(RESULT))
+                f.write("\n\n")
+                f.write(str(INFO))
+                f.write("\n\n")
+                print(f"\n{DF_LEFT}\n{INFO}\n")
+                print(f"\nWriting DF_LEFT to csv: {CSVFILE}\n\n")
+                DF_LEFT.to_csv(CSVFILE)
+
+        except ValueError as e:
+            print(f"\nCouldn't create DataFrame from response, sorry, I tried.. \n")
