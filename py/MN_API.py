@@ -1574,7 +1574,7 @@ def dfDisplay(PY_OBJ, METHOD, xpose=None, brief=None, filt_param=None):
     OUTFILE = str("./logs/dfDisplay_MN_API_" + METHOD + ".txt")
     CSVFILE = str("./logs/dfDisplay_MN_API_" + METHOD + ".csv")
 
-    f = open(OUTFILE, "w")
+    # f = open(OUTFILE, "w")
 
     INFO = ""
 
@@ -1635,11 +1635,11 @@ def dfDisplay(PY_OBJ, METHOD, xpose=None, brief=None, filt_param=None):
                 print(f"\nReturning RESULT_LIST with {len(RESULT_LIST)} items!\n")
 
                 # write filtered output to file first
-                f.write("\n\n")
-                f.write(str(df))
-                f.write("\n\n")
-                f.write(str(INFO))
-                f.write("\n\n")
+                # f.write("\n\n")
+                # f.write(str(df))
+                # f.write("\n\n")
+                # f.write(str(INFO))
+                # f.write("\n\n")
 
                 # return back to calling func
                 return RESULT_LIST
@@ -1652,9 +1652,9 @@ def dfDisplay(PY_OBJ, METHOD, xpose=None, brief=None, filt_param=None):
             )
             """
 
-            f.write("\n\n")
-            f.write(str(df))
-            f.write("\n\n")
+            # f.write("\n\n")
+            # f.write(str(df))
+            # f.write("\n\n")
             # f.write(str(INFO))
             # f.write("\n\n")
 
@@ -1794,11 +1794,11 @@ def dfDisplay(PY_OBJ, METHOD, xpose=None, brief=None, filt_param=None):
                     print(f"\nReturning RESULT_LIST with {len(RESULT_LIST)} items!\n")
 
                     # write filtered output to file first
-                    f.write("\n\n")
-                    f.write(str(df))
-                    f.write("\n\n")
-                    f.write(str(INFO))
-                    f.write("\n\n")
+                    # f.write("\n\n")
+                    # f.write(str(df))
+                    # f.write("\n\n")
+                    # f.write(str(INFO))
+                    # f.write("\n\n")
 
                     # return back to calling func
                     return RESULT_LIST
@@ -1811,11 +1811,11 @@ def dfDisplay(PY_OBJ, METHOD, xpose=None, brief=None, filt_param=None):
                 )
                 """
 
-                f.write("\n\n")
-                f.write(str(df))
-                f.write("\n\n")
-                f.write(str(INFO))
-                f.write("\n\n")
+                # f.write("\n\n")
+                # f.write(str(df))
+                # f.write("\n\n")
+                # f.write(str(INFO))
+                # f.write("\n\n")
 
                 print(f"\n{df}\n{INFO}\n")
 
@@ -1881,11 +1881,14 @@ def dfMergeDisplay(PY_OBJ_LEFT, PY_OBJ_RIGHT, METHOD, xpose=None, brief=None, fi
                 print(f"\nFound! filt_param: {filt_param} inside DF_LEFT ..\n")
                 RESULT_LIST = list(OUTER_MERGED[filt_param])
                 print(f"\nReturning RESULT_LIST with {len(RESULT_LIST)} items!\n")
-                f.write("\n\n")
-                f.write(str(OUTER_MERGED))
-                f.write("\n\n")
-                f.write(str(INFO))
-                f.write("\n\n")
+                #
+                # stop logging !
+                #
+                # f.write("\n\n")
+                # f.write(str(OUTER_MERGED))
+                # f.write("\n\n")
+                # f.write(str(INFO))
+                # f.write("\n\n")
                 return RESULT_LIST
         except:
             """
@@ -1893,9 +1896,10 @@ def dfMergeDisplay(PY_OBJ_LEFT, PY_OBJ_RIGHT, METHOD, xpose=None, brief=None, fi
                 f"\nfilt_param: {filt_param} , might be ok! \nwarning: OUTER_MERGED\[filt_param\] was None\n"
             )
             """
-            f.write("\n\n")
-            f.write(str(OUTER_MERGED))
-            f.write("\n\n")
+            # stop logging !
+            # f.write("\n\n")
+            # f.write(str(OUTER_MERGED))
+            # f.write("\n\n")
             CSV_STR = OUTER_MERGED.to_csv(sep=',', index=False)
             CSV_LIST = CSV_STR.split('\n')
             CSV_OBJ = csv.reader(CSV_LIST)
@@ -1949,11 +1953,14 @@ def dfMergeDisplay(PY_OBJ_LEFT, PY_OBJ_RIGHT, METHOD, xpose=None, brief=None, fi
                     print(f"\nFound! filt_param: {filt_param} inside DF_LEFT ..\n")
                     RESULT_LIST = list(OUTER_MERGED[filt_param])
                     print(f"\nReturning RESULT_LIST with {len(RESULT_LIST)} items!\n")
-                    f.write("\n\n")
-                    f.write(str(OUTER_MERGED))
-                    f.write("\n\n")
-                    f.write(str(INFO))
-                    f.write("\n\n")
+                    # 
+                    # stop logging !
+                    #
+                    # f.write("\n\n")
+                    # f.write(str(OUTER_MERGED))
+                    # f.write("\n\n")
+                    # f.write(str(INFO))
+                    # f.write("\n\n")
                     return RESULT_LIST
             except:
                 """
@@ -1961,11 +1968,14 @@ def dfMergeDisplay(PY_OBJ_LEFT, PY_OBJ_RIGHT, METHOD, xpose=None, brief=None, fi
                     f"\nfilt_param: {filt_param} , might be ok! \nwarning: OUTER_MERGED\[filt_param\] was None\n"
                 )
                 """
-                f.write("\n\n")
-                f.write(str(OUTER_MERGED))
-                f.write("\n\n")
-                f.write(str(INFO))
-                f.write("\n\n")
+                #
+                # stop logging !
+                #
+                # f.write("\n\n")
+                # f.write(str(OUTER_MERGED))
+                # f.write("\n\n")
+                # f.write(str(INFO))
+                # f.write("\n\n")
                 print(f"\n{DF_LEFT}\n{INFO}\n")
                 print(f"\nWriting DF_LEFT to csv: {CSVFILE}\n\n")
                 DF_LEFT.to_csv(CSVFILE)
@@ -2013,11 +2023,14 @@ def dfMergeDisplay(PY_OBJ_LEFT, PY_OBJ_RIGHT, METHOD, xpose=None, brief=None, fi
                 print(f"\nFound! filt_param: {filt_param} inside RESULT ..\n")
                 RESULT_LIST = list(RESULT[filt_param])
                 print(f"\nReturning RESULT_LIST with {len(RESULT_LIST)} items!\n")
-                f.write("\n\n")
-                f.write(str(RESULT))
-                f.write("\n\n")
-                f.write(str(INFO))
-                f.write("\n\n")
+                #
+                # stop logging !
+                #
+                # f.write("\n\n")
+                # f.write(str(RESULT))
+                # f.write("\n\n")
+                # f.write(str(INFO))
+                # f.write("\n\n")
                 return RESULT_LIST
         except:
             """
@@ -2025,9 +2038,12 @@ def dfMergeDisplay(PY_OBJ_LEFT, PY_OBJ_RIGHT, METHOD, xpose=None, brief=None, fi
                 f"\nfilt_param: {filt_param} , might be ok! \nwarning: OUTER_MERGED\[filt_param\] was None\n"
             )
             """
-            f.write("\n\n")
-            f.write(str(RESULT))
-            f.write("\n\n")
+            #
+            # stop logging !
+            #
+            # f.write("\n\n")
+            # f.write(str(RESULT))
+            # f.write("\n\n")
             CSV_STR = DF_RESULT.to_csv(sep=',', index=False)
             CSV_LIST = CSV_STR.split('\n')
             CSV_OBJ = csv.reader(CSV_LIST)
@@ -2076,11 +2092,14 @@ def dfMergeDisplay(PY_OBJ_LEFT, PY_OBJ_RIGHT, METHOD, xpose=None, brief=None, fi
                     print(f"\nFound! filt_param: {filt_param} inside DF_LEFT ..\n")
                     RESULT_LIST = list(RESULT[filt_param])
                     print(f"\nReturning RESULT_LIST with {len(RESULT_LIST)} items!\n")
-                    f.write("\n\n")
-                    f.write(str(RESULT))
-                    f.write("\n\n")
-                    f.write(str(INFO))
-                    f.write("\n\n")
+                    #
+                    # stop logging !
+                    #
+                    # f.write("\n\n")
+                    # f.write(str(RESULT))
+                    # f.write("\n\n")
+                    # f.write(str(INFO))
+                    # f.write("\n\n")
                     return RESULT_LIST
             except:
                 """
@@ -2088,11 +2107,13 @@ def dfMergeDisplay(PY_OBJ_LEFT, PY_OBJ_RIGHT, METHOD, xpose=None, brief=None, fi
                     f"\nfilt_param: {filt_param} , might be ok! \nwarning: OUTER_MERGED\[filt_param\] was None\n"
                 )
                 """
-                f.write("\n\n")
-                f.write(str(RESULT))
-                f.write("\n\n")
-                f.write(str(INFO))
-                f.write("\n\n")
+                # stop logging !
+                #
+                # f.write("\n\n")
+                # f.write(str(RESULT))
+                # f.write("\n\n")
+                # f.write(str(INFO))
+                # f.write("\n\n")
                 print(f"\n{DF_LEFT}\n{INFO}\n")
                 print(f"\nWriting DF_LEFT to csv: {CSVFILE}\n\n")
                 DF_LEFT.to_csv(CSVFILE)
