@@ -37,7 +37,7 @@ fi
 # export PATH="$PATH:$HOME/bin:$HOME/py:$HOME/aws:$HOME/jq:$HOME/jinja"
 # export PATH="$PATH:$HOME/PUBREPOS/fzf/bin"
 
-PATH="$PATH:$HOME/.local/bin:$HOME/bin:$HOME/py:$HOME/aws:$HOME/jq:$HOME/jinja"
+PATH="$PATH:$HOME/.local/bin:$HOME/bin:$HOME/py:$HOME/aws:$HOME/jq:$HOME/jinja:$HOME/Library/Python/3.9/bin"
 export PATH="$PATH:$HOME/PUBREPOS/fzf/bin"
  
 
